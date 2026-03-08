@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import ScrollAnimation from "@/components/ScrollAnimation";
-import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight, Star, BadgeCheck } from "lucide-react";
 
 const STATS = [
   { id: 1, label: "Capital Deployed", value: "₹5Cr+" },
@@ -13,24 +13,24 @@ const TESTIMONIALS = [
   {
     id: 1,
     name: "Sarah Jenkins",
-    role: "CEO, TechNova",
-    text: '"360 Marketing completely transformed our online presence. Our lead generation increased by 200% within the first quarter. Truly institutional-grade service."',
+    role: "CEO, TechNova SaaS",
+    text: '"360 Marketing engineered a complete digital overhaul. They scaled our inbound MQL flow by 340% within 4 months, reducing our Customer Acquisition Cost by nearly 60%."',
     photo:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80",
   },
   {
     id: 2,
     name: "Michael Chen",
-    role: "Product Lead, Quantum",
-    text: '"The digital architecture they built is not only beautiful but incredibly performant. They understood our bespoke needs perfectly."',
+    role: "Head of Growth, Quantum Logistics",
+    text: '"Their data-driven approach is ruthless and effective. They built a bespoke lead-capture architecture that converted at 4x our previous industry benchmark. Undeniable ROI."',
     photo:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80",
   },
   {
     id: 3,
     name: "Elena Rodriguez",
-    role: "Founder, FitLife",
-    text: '"Their content creation team captured our brand voice with eerie precision. The ROI on our social campaigns has been unprecedented."',
+    role: "Founder, FitLife Apparel",
+    text: '"The strategic creative they delivered outperformed our internal creative team 10 to 1. They drove a 500% lift in ROAS during our Q4 scaling phase. Institutional grade."',
     photo:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80",
   },
@@ -75,9 +75,17 @@ const Testimonials = () => {
               <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary italic mb-4 block">
                 Voices of Trust
               </span>
-              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-neutral-900 leading-none">
+              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-neutral-900 leading-none mb-6">
                 Client Sentiments<span className="text-primary">.</span>
               </h2>
+              <div className="flex items-center gap-3 bg-neutral-50 border border-neutral-100 py-2 px-4 rounded-full w-fit">
+                <div className="flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} className="fill-[#FBBF24] text-[#FBBF24]" />
+                  ))}
+                </div>
+                <span className="text-xs font-bold tracking-tight">Rated 4.9/5 on Clutch & Google</span>
+              </div>
             </ScrollAnimation>
           </div>
 
@@ -140,9 +148,12 @@ const Testimonials = () => {
                   className="w-14 h-14 rounded-full object-cover grayscale"
                 />
                 <div>
-                  <h4 className="font-bold tracking-tight text-neutral-900">
-                    {t.name}
-                  </h4>
+                  <div className="flex items-center gap-1">
+                    <h4 className="font-bold tracking-tight text-neutral-900">
+                      {t.name}
+                    </h4>
+                    <BadgeCheck size={16} className="text-blue-500 min-w-4" />
+                  </div>
                   <p className="text-xs uppercase tracking-widest text-neutral-400 font-medium">
                     {t.role}
                   </p>

@@ -81,6 +81,18 @@ const Plans = () => {
         title="Investment tiers for global growth"
         subtitle="Transparent pricing designed for ambitious brands ready to transcend the ordinary."
       />
+      <div className="container mx-auto px-6 flex flex-col items-center justify-center -mt-8 mb-20 relative z-10">
+         <ScrollAnimation>
+           <div className="flex flex-col sm:flex-row gap-4 items-center">
+             <Button asChild className="h-14 px-8 rounded-full bg-primary hover:bg-black text-white shadow-lg transition-all font-bold tracking-wide">
+               <Link to="/contact">Discuss Custom Mandate</Link>
+             </Button>
+             <Button asChild variant="outline" className="h-14 px-8 rounded-full border-neutral-200 hover:bg-neutral-100 transition-all font-bold tracking-wide">
+               <a href="#tiers">Compare Tiers</a>
+             </Button>
+           </div>
+         </ScrollAnimation>
+      </div>
 
       {/* PRICING SECTION */}
       <section className="pb-20 bg-white">
@@ -109,7 +121,7 @@ const Plans = () => {
                     >
                       {plan.desc}
                     </p>
-                    <div className="flex items-baseline gap-1">
+                    <div className="flex items-baseline gap-1 mb-8">
                       <span className="text-5xl font-extrabold tracking-tighter">
                         {plan.price}
                       </span>
@@ -119,6 +131,26 @@ const Plans = () => {
                         {plan.period}
                       </span>
                     </div>
+
+                    <Button
+                      asChild
+                      className={`w-full h-14 mb-8 rounded-xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
+                        plan.highlighted
+                          ? "bg-white text-black hover:bg-primary hover:text-white shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+                          : "bg-neutral-900 text-white hover:bg-black"
+                      }`}
+                    >
+                      <Link
+                        to="/contact"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        {plan.cta}{" "}
+                        <ArrowRight
+                          size={14}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
+                      </Link>
+                    </Button>
                   </CardHeader>
 
                   <CardContent className="p-10 pt-0 flex flex-col h-full">
@@ -126,7 +158,7 @@ const Plans = () => {
                       className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`}
                     />
 
-                    <ul className="space-y-5 mb-12 flex-grow">
+                    <ul className="space-y-5 flex-grow">
                       {plan.features.map((f) => (
                         <li key={f} className="flex items-center gap-3 group">
                           <div
@@ -142,26 +174,6 @@ const Plans = () => {
                         </li>
                       ))}
                     </ul>
-
-                    <Button
-                      asChild
-                      className={`h-16 rounded-2xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
-                        plan.highlighted
-                          ? "bg-white text-black hover:bg-primary hover:text-white"
-                          : "bg-neutral-900 text-white hover:bg-black"
-                      }`}
-                    >
-                      <Link
-                        to="/contact"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        {plan.cta}{" "}
-                        <ArrowRight
-                          size={14}
-                          className="group-hover:translate-x-1 transition-transform"
-                        />
-                      </Link>
-                    </Button>
                   </CardContent>
                 </Card>
               </ScrollAnimation>
