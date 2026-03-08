@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Typewriter } from "@/components/ui/typewriter-text";
+import { FlowButton } from "@/components/ui/flow-button";
 
 const Hero = () => {
     return (
@@ -47,22 +48,13 @@ const Hero = () => {
                     className="animate-fade-in opacity-0 flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4 sm:px-0"
                     style={{ animationDelay: "450ms", animationFillMode: 'forwards' }}
                 >
-                    <Button
-                        asChild
-                        size="lg"
-                        className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-10 h-14 text-base font-semibold shadow-xl shadow-secondary/20 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-secondary/30 active:translate-y-0 active:scale-95 w-full sm:w-auto"
-                    >
-                        <Link to="/contact">Get Started</Link>
-                    </Button>
+                    <Link to="/contact">
+                        <FlowButton text="Get Started" className="w-full sm:w-auto bg-secondary/10 border-secondary/40 hover:bg-secondary/20" />
+                    </Link>
 
-                    <Button
-                        asChild
-                        size="lg"
-                        variant="outline"
-                        className="rounded-full px-10 h-14 text-base font-semibold border-border/60 bg-background/50 backdrop-blur-md text-foreground hover:bg-muted/80 hover:text-foreground transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg active:translate-y-0 active:scale-95 w-full sm:w-auto"
-                    >
-                        <Link to="/portfolio">View Our Work</Link>
-                    </Button>
+                    <Link to="/portfolio">
+                        <FlowButton text="View Our Work" className="w-full sm:w-auto border-border/60 hover:bg-muted/10 text-foreground" />
+                    </Link>
                 </div>
             </div>
         </section>

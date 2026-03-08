@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { FlowButton } from "@/components/ui/flow-button";
 import ScrollAnimation from "@/components/ScrollAnimation";
-import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
     return (
@@ -20,12 +19,11 @@ const CTASection = () => {
                             <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
                                 Let's discuss how we can help you achieve your goals with premium digital marketing and software development.
                             </p>
-                            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-10 h-14 text-lg font-semibold shadow-xl shadow-secondary/25 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-secondary/40 active:translate-y-0 active:scale-95 w-full sm:w-auto group">
-                                <Link to="/contact" className="flex items-center justify-center">
-                                    Start Your Project
-                                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                            <div className="flex justify-center mt-8">
+                                <Link to="/contact">
+                                    <FlowButton text="Start Your Project" />
                                 </Link>
-                            </Button>
+                            </div>
                         </div>
                     </div>
                 </ScrollAnimation>

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { FlowButton } from "@/components/ui/flow-button";
 import ScrollAnimation from "@/components/ScrollAnimation";
 import { ArrowRight } from "lucide-react";
 
@@ -44,10 +44,10 @@ const FeaturedProjects = () => {
                     ))}
                 </div>
 
-                <div className="text-center mt-16 md:mt-20">
-                    <Button asChild size="lg" variant="outline" className="rounded-full px-8 h-12 text-base font-medium border-border hover:bg-muted/50 transition-all">
-                        <Link to="/portfolio">View All Projects</Link>
-                    </Button>
+                <div className="mt-16 md:mt-20 flex justify-center">
+                    <Link to="/portfolio">
+                        <FlowButton text="View All Projects" />
+                    </Link>
                 </div>
             </div>
         </section>
