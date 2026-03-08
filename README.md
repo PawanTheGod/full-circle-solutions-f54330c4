@@ -1,130 +1,127 @@
-# 360° Marketing Agency
+# 360 Marketing Agency - Web Platform
 
-A professional full-stack web application with a clean **frontend / backend** separation.
+A premium, full-stack marketing agency web platform built with a modern React SPA frontend and a Node.js/Express backend. The application features a high-end, minimalist aesthetic with sophisticated scroll animations, dynamic layouts, and a secure contact management system.
 
 ---
 
-## 📁 Project Structure
+## 🚀 Core Features
 
-```
+- **Elite UI/UX Architecture:** Custom scroll animations, tight layout density, and modern typography (Space Grotesk & DM Sans).
+- **Responsive "Bento" Grids:** Highly polished, mobile-responsive grids used across the Portfolio and Services sections.
+- **Dynamic Scroll Observers:** Custom `ScrollAnimation.tsx` component that orchestrates staggered reveal animations.
+- **Secure Backend API:** A lightweight Express backend that securely processes contact leads and stores them in a Supabase PostgreSQL database.
+- **Scalable Component Pattern:** Built exclusively using fully customizable `shadcn/ui` and Radix UI primitives.
+
+---
+
+## 🏗️ Technology Stack
+
+### Frontend Ecosystem
+- **Framework:** React 18 + Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v3 (JIT Compiler) + Vanilla CSS (`index.css`)
+- **UI Library:** shadcn/ui (Radix Primitives) + custom Lucide React icons
+- **Animations:** Framer Motion + Tailwind Keyframes
+- **Routing:** React Router v6
+
+### Backend Ecosystem
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** Supabase (PostgreSQL via REST API)
+- **Security:** Helmet, CORS, and standard Express sanitization.
+
+---
+
+## 📁 Repository Structure
+
+```text
 360-marketing-agency/
 │
-├── backend/                   ← Express.js API (Node.js)
+├── backend/                   ← Express.js API (Port 5000)
 │   ├── controllers/
-│   │   └── contactController.js
+│   │   └── contactController.js  (Processes form securely)
 │   ├── routes/
 │   │   └── contactRoutes.js
-│   ├── utils/
-│   │   └── sendEmail.js
-│   ├── .env                   ← ⚠️ Fill in your Gmail credentials
+│   ├── .env                   ← ⚠️ Insert Supabase Keys Here
 │   ├── package.json
 │   └── server.js
 │
-├── frontend/                  ← React + Vite + TailwindCSS
-│   ├── public/
+├── frontend/                  ← React UI (Port 5173 / 8081)
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   │   ├── Index.tsx      (Home)
-│   │   │   ├── Services.tsx
-│   │   │   ├── Plans.tsx
-│   │   │   ├── Portfolio.tsx
-│   │   │   ├── Testimonials.tsx
-│   │   │   ├── About.tsx
-│   │   │   └── Contact.tsx    ← Calls backend API
-│   │   ├── hooks/
-│   │   ├── lib/
-│   │   ├── App.tsx
+│   │   ├── components/        (PageHeaders, UI primitives)
+│   │   ├── pages/             (Index, Services, Portfolio, etc.)
+│   │   ├── lib/               (Tailwind utils)
+│   │   ├── index.css          (Global styling + utility classes)
+│   │   ├── App.tsx            (Router definitions)
 │   │   └── main.tsx
-│   ├── index.html
-│   ├── package.json
-│   ├── tailwind.config.ts
-│   └── vite.config.ts
+│   ├── tailwind.config.ts     (Safelist animations included)
+│   ├── eslint.config.js       (Configured for shadcn/ui)
+│   └── package.json
 │
 └── README.md
 ```
 
 ---
 
-## 🚀 How to Run
+## 🗺️ Page Architecture
 
-### 1. Start the Backend
+The frontend consists of 7 tightly integrated pages sharing a persistent `Navbar` and `Footer`:
 
+1. **`Index.tsx`**: High-impact homepage with an animated hero section, statistical counters, and curated portfolio highlights.
+2. **`Services.tsx`**: A sticky, side-scrolling grid detailing Digital Dominance, Visual Storytelling, and Web Architecture.
+3. **`Portfolio.tsx`**: An interactive, filterable masonry grid featuring the agency's best work.
+4. **`Testimonials.tsx`**: Social proof consisting of a bento-style stats grid and a horizontally scrollable quote carousel.
+5. **`Plans.tsx`**: Retainer pricing tiers showcasing exact service parameters.
+6. **`About.tsx`**: The agency's "Manifesto", core team bios, and company philosophy.
+7. **`Contact.tsx`**: The lead generation engine featuring Google Maps integration and the core submission form connected to the Express backend.
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Database Configuration (Supabase)
+Before running the backend, you must configure your database.
+1. Create a project in [Supabase](https://supabase.com).
+2. Create a table named `contacts` with the following columns: `name`, `email`, `phone`, `service`, `message`.
+
+### 2. Backend Initialization
+Edit `backend/.env` with your precise credentials.
+```env
+PORT=5000
+NODE_ENV=development
+
+# Front End Network Origin
+FRONTEND_URL=http://localhost:5173
+
+# Supabase Credentials
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_KEY=your_supabase_anon_key
+```
+
+Run the API:
 ```bash
 cd backend
 npm install
-node server.js
+npm run dev
+```
+*The API will mount at `http://localhost:5000/api/contact`.*
+
+### 3. Frontend Initialization
+If you are running the frontend on a different port than `5173`, ensure you define the backend URL in `frontend/.env`:
+```env
+VITE_API_URL=http://localhost:5000
 ```
 
-Backend runs at → **http://localhost:5000**
-
-### 2. Start the Frontend
-
+Run the Client:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend runs at → **http://localhost:5173**
-
 ---
 
-## ⚙️ Backend Environment Variables
-
-Edit `backend/.env` before starting:
-
-```env
-PORT=5000
-NODE_ENV=development
-
-# Gmail App Password (NOT your account password)
-GMAIL_USER=your-email@gmail.com
-GMAIL_PASS=your-16-char-app-password
-
-# Where contact form submissions are delivered
-AGENCY_EMAIL=hello@360marketing.in
-
-# Frontend origin for CORS
-FRONTEND_URL=http://localhost:5173
-```
-
-> **How to get a Gmail App Password:**
-> 1. Enable 2-Step Verification on your Google Account
-> 2. Go to **Manage your Google Account → Security → App Passwords**
-> 3. Create an app password for "Mail" and paste it as `GMAIL_PASS`
-
----
-
-## 🔗 How Frontend Talks to Backend
-
-The `Contact.tsx` page sends form submissions to:
-
-```
-POST http://localhost:5000/api/contact
-```
-
-CORS is already configured in `backend/server.js` to accept requests from `http://localhost:5173`.
-
----
-
-## 👥 Team Development
-
-Each team member should work in their assigned area:
-
-| Developer | Area | Path |
-|-----------|------|------|
-| Frontend lead | Pages & components | `frontend/src/pages/` |
-| Frontend dev | Shared components | `frontend/src/components/` |
-| Backend dev | API & email | `backend/` |
-
----
-
-## 📦 Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, TypeScript, Vite, TailwindCSS, shadcn/ui |
-| Backend | Node.js, Express.js |
-| Email | Nodemailer + Gmail |
-| Routing | React Router DOM v6 |
+## 🎨 Design System & CSS Notes
+- **Negative Space Optimization**: The codebase has been actively tuned to reduce excessive padding, offering a high-density, punchy user experience. If future modules are built, utilize `.section-padding` from `index.css` rather than hardcoding `py-32` blocks.
+- **Scroll Animations**: All UI elements are lazy-loaded via the `ScrollAnimation.tsx` wrapper. To prevent Tailwind's JIT compiler from purging dynamic classes, the animations are strict-mapped in the component and `safelist` logic is added to `tailwind.config.ts`.
+- **Dark Mode**: The global CSS supports a pristine dark mode. It can be instantiated simply by adding a toggle mechanism assigning the `dark` class to the HTML root.
