@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -23,6 +24,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { scrollYProgress } = useScroll();
+  const logoRotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -46,11 +49,14 @@ const Navbar = () => {
         {/* LOGO */}
         <Link
           to="/"
-          className="flex items-center gap-2 group transition-transform hover:scale-[1.02]"
+          className="flex items-center gap-3 group transition-transform hover:scale-[1.02]"
         >
-          <div className="w-8 h-8 bg-neutral-900 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-            360
-          </div>
+          <motion.img 
+            src="/logo.png"
+            alt="360 Marketing Logo"
+            style={{ rotate: logoRotation }}
+            className="w-10 h-10 object-contain"
+          />
           <span className="font-bold tracking-tighter text-xl text-neutral-900">
             Marketing<span className="text-primary">.</span>
           </span>
@@ -64,6 +70,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
+                replace
                 className={`relative px-4 py-2 rounded-full text-[12px] uppercase tracking-widest font-bold transition-all duration-300 ${
                   isActive
                     ? "text-neutral-900"
@@ -83,9 +90,9 @@ const Navbar = () => {
         <div className="hidden lg:block">
           <Button
             asChild
-            className="group rounded-full bg-neutral-900 hover:bg-black text-white px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:shadow-2xl active:scale-95"
+            className="group rounded-full bg-neutral-900 hover:bg-black text-white px-6 h-10 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:shadow-2xl active:scale-[0.97] hover:scale-[1.02]"
           >
-            <Link to="/contact" className="flex items-center gap-2">
+            <Link to="/contact" replace className="flex items-center gap-2">
               Start Project{" "}
               <ArrowRight
                 size={14}
@@ -111,10 +118,12 @@ const Navbar = () => {
             className="w-full sm:w-[400px] border-l-0 p-0 overflow-hidden"
           >
             <div className="flex flex-col h-full bg-white p-8 md:p-12">
-              <SheetTitle className="flex items-center gap-2 font-bold text-2xl mb-16">
-                <div className="w-10 h-10 bg-neutral-900 rounded-xl flex items-center justify-center text-white text-xs">
-                  360
-                </div>
+              <SheetTitle className="flex items-center gap-3 font-bold text-2xl mb-16">
+                <img 
+                  src="/logo.png"
+                  alt="360 Marketing Logo"
+                  className="w-12 h-12 object-contain"
+                />
                 Marketing<span className="text-primary">.</span>
               </SheetTitle>
 
@@ -125,9 +134,10 @@ const Navbar = () => {
                     <Link
                       key={link.path}
                       to={link.path}
+                      replace
                       onClick={() => setOpen(false)}
                       style={{ transitionDelay: `${i * 50}ms` }}
-                      className={`group flex items-center justify-between py-2 text-3xl font-extrabold tracking-tighter transition-all ${
+                      className={`group flex items-center justify-between py-2 text-3xl font-extrabold tracking-tighter transition-all active:scale-95 ${
                         isActive
                           ? "text-neutral-900 translate-x-4"
                           : "text-neutral-300 hover:text-neutral-900 hover:translate-x-4"
@@ -151,7 +161,7 @@ const Navbar = () => {
                   asChild
                   className="w-full h-20 bg-neutral-900 hover:bg-black text-white rounded-3xl font-bold text-xl transition-all shadow-2xl"
                 >
-                  <Link to="/contact" onClick={() => setOpen(false)}>
+                  <Link to="/contact" replace onClick={() => setOpen(false)}>
                     Get Started
                   </Link>
                 </Button>

@@ -39,15 +39,15 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     }
   }, [isInView, controls, once]);
 
-  // Define directional offsets
+  // Define refined, subtler directional offsets
   const getOffset = () => {
     switch (direction) {
-      case "up": return { y: 50, x: 0 };
-      case "down": return { y: -50, x: 0 };
-      case "left": return { x: 50, y: 0 };
-      case "right": return { x: -50, y: 0 };
+      case "up": return { y: 20, x: 0 };
+      case "down": return { y: -20, x: 0 };
+      case "left": return { x: 20, y: 0 };
+      case "right": return { x: -20, y: 0 };
       case "none": return { x: 0, y: 0 };
-      default: return { y: 50, x: 0 };
+      default: return { y: 20, x: 0 };
     }
   };
 
@@ -64,9 +64,9 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       x: 0, 
       y: 0,
       transition: {
-        duration,
+        duration: 0.5, // Faster, snappier reveal
         delay,
-        ease: [0.16, 1, 0.3, 1], // easeOutQuint for premium feel
+        ease: "easeOut" as any, // Simple easing, no dramatic curves
         staggerChildren,
       }
     }

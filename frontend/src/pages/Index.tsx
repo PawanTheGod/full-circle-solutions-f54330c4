@@ -1,84 +1,53 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import ScrollAnimation from "@/components/ScrollAnimation";
+import ScrollReveal from "@/components/ScrollReveal";
+import CountUp from "react-countup";
+import { 
+  useScroll, 
+  useTransform, 
+  motion, 
+  useSpring,
+  AnimatePresence 
+} from "framer-motion";
 import {
   BarChart3,
   Video,
   PenTool,
   Code,
-  ChevronDown,
-  Star,
   ArrowRight,
   Briefcase,
   Users,
   Clock,
   Layers,
   ArrowUpRight,
+  Camera,
+  Search,
+  Target,
+  Zap,
+  Trophy,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 
-// --- Sophisticated Counter ---
-const Counter = ({
-  target,
-  suffix = "",
-}: {
-  target: number;
-  suffix?: string;
-}) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          let start = 0;
-          const duration = 2000;
-          const step = (timestamp: number) => {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
-            setCount(Math.floor(progress * target));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        }
-      },
-      { threshold: 0.5 },
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
-};
-
+// --- Data ---
 const services = [
   {
     icon: BarChart3,
-    title: "Digital Strategy",
-    desc: "Precision-targeted growth through LinkedIn, Google, and elite social channels.",
+    title: "Digital Mastery",
+    desc: "Precision-targeted growth through elite social channels and high-conversion copy.",
   },
   {
-    icon: Video,
-    title: "Creative Production",
-    desc: "High-fidelity visual storytelling, from event coverage to cinematic brand films.",
+    icon: Camera,
+    title: "Visual Storytelling",
+    desc: "High-fidelity product shoots, reels, and cinematic films that command attention.",
   },
   {
-    icon: PenTool,
-    title: "Design Systems",
-    desc: "Stunning visual identities and conversion-optimized copy that commands attention.",
+    icon: Layers,
+    title: "Physical Presence",
+    desc: "Dominating the tangible world through billboard advertising and outdoor campaigns.",
   },
   {
     icon: Code,
-    title: "Technical Solutions",
+    title: "Digital Architecture",
     desc: "Bespoke, high-performance web ecosystems built for seamless user conversion.",
   },
 ];
@@ -95,230 +64,394 @@ const projects = [
     title: "The Modern Rebrand",
     cat: "Identity",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    className: "md:col-span-2 md:row-span-2",
   },
   {
     title: "Growth Ecosystem",
     cat: "Strategy",
     img: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+    className: "md:col-span-1 md:row-span-1",
   },
   {
     title: "Digital Architecture",
     cat: "Development",
     img: "https://images.unsplash.com/photo-1547658719-da2b51169166?w=800&q=80",
+    className: "md:col-span-1 md:row-span-1",
   },
 ];
 
 const Index = () => {
-  return (
-    <div className="bg-[#fafafa] selection:bg-black selection:text-white">
-      {/* ELITE HERO SECTION */}
-      <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-white">
-        {/* Subtle Background Elements */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-neutral-50 -z-10" />
-        <div className="absolute top-1/4 left-10 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10" />
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const rotate360 = useTransform(smoothProgress, [0, 1], [0, 360]);
+  const scale360 = useTransform(smoothProgress, [0, 0.5], [1, 1.2]);
+  const opacity360 = useTransform(smoothProgress, [0, 0.3], [0.03, 0]);
 
-        <div className="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center pt-20">
-          <div className="space-y-8 text-left">
-            <ScrollAnimation>
-              <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-primary bg-primary/10 px-4 py-2 rounded-full">
-                360° Evolution
-              </span>
-              <h1 className="text-6xl md:text-8xl font-extrabold tracking-tighter leading-[0.9] mt-6 text-neutral-900">
-                Where Strategy <br /> Meets{" "}
-                <span className="italic font-light serif text-neutral-400">
-                  Art.
-                </span>
-              </h1>
-              <p className="text-xl text-neutral-500 font-light max-w-lg mt-8 leading-relaxed">
-                Transforming emerging brands into industry icons through
-                high-performance digital marketing and bespoke creative
-                solutions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 pt-8">
-                <Button
-                  asChild
-                  className="h-16 px-10 rounded-2xl bg-black text-white hover:scale-105 transition-transform text-lg shadow-2xl"
-                >
-                  <Link to="/contact">Start Your Journey</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="h-16 px-8 rounded-2xl text-lg group"
-                >
-                  <Link to="/portfolio" className="flex items-center gap-2">
-                    View Curated Work{" "}
-                    <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </ScrollAnimation>
+  return (
+    <div className="bg-[#fafafa] selection:bg-black selection:text-white font-['Outfit',sans-serif] text-neutral-900">
+      <Helmet>
+        <title>360 Marketing Agency | Master Your Brand Evolution</title>
+        <meta name="description" content="Pune's premier marketing collective. Data-driven strategy, cinematic creative production, and high-performance digital architecture." />
+      </Helmet>
+      
+      {/* 1. HERO SECTION - Clean & Professional */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-white">
+        {/* LARGE ROTATING BRAND CIRCLE */}
+        <motion.div 
+          style={{ rotate: rotate360, scale: scale360, opacity: opacity360 }}
+          className="absolute w-[800px] h-[800px] border-dashed border-[40px] border-neutral-900 rounded-full pointer-events-none -top-40 -right-40 z-0"
+        />
+        
+        {/* Animated Background Element */}
+        <div className="mesh-gradient-bg" />
+        
+        <div className="container mx-auto px-6 max-w-7xl pt-20 flex flex-col items-center text-center relative z-10">
+          
+          <ScrollReveal direction="up" delay={0}>
+            <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-neutral-500 bg-white/50 backdrop-blur-md border border-neutral-200/50 px-4 py-2 rounded-full mb-8 inline-block shadow-sm">
+              360° Evolution
+            </span>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={0.1}>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] max-w-5xl text-neutral-900 pb-4">
+              Where Strategy <br /> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-950 via-neutral-800 to-neutral-600">Meets Art</span>
+            </h1>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={0.2}>
+            <p className="text-lg md:text-xl text-neutral-600 font-['Inter',sans-serif] font-light max-w-2xl mt-8 leading-relaxed mx-auto">
+              Transforming emerging brands into industry icons through <span className="font-medium text-neutral-900">high-performance digital marketing</span> and bespoke creative solutions.
+            </p>
+          </ScrollReveal>
+
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12 pb-16">
+            <ScrollReveal direction="up" delay={0.3}>
+              <Link to="/contact" replace>
+                <button className="magnetic-btn bg-black text-white px-12 py-5 rounded-full font-bold shadow-2xl hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] uppercase tracking-widest text-sm flex items-center gap-2 group">
+                  Initiate Evolution
+                  <div className="w-1.5 h-1.5 rounded-full bg-white group-hover:animate-ping" />
+                </button>
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.4}>
+              <Link to="/plans" replace>
+                <button className="glass-light px-12 py-5 rounded-full font-bold text-neutral-800 hover:bg-white hover:text-black transition-all active:scale-95 hover:scale-[1.02] border border-neutral-100 shadow-xl uppercase tracking-widest text-sm backdrop-blur-md">
+                  Investment Strategies
+                </button>
+              </Link>
+            </ScrollReveal>
           </div>
 
-          <ScrollAnimation delay={200} className="relative hidden lg:block">
-            <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-700">
-              <img
-                src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1200"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
-                alt="Studio Workspace"
-              />
+          {/* SERVICE INFLUENCE PILLARS */}
+          <ScrollReveal direction="up" delay={0.6} className="w-full">
+            <div className="mt-8 border-t border-neutral-100/50 pt-12">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-neutral-400 mb-8">Integrated Ecosystems</p>
+              <div className="flex flex-wrap justify-center gap-4 px-4 max-w-5xl mx-auto">
+                {[
+                  { label: "Strategic Authority", icon: BarChart3 },
+                  { label: "Cinematic Creative", icon: Camera },
+                  { label: "Digital Architecture", icon: Code },
+                ].map((service, idx) => (
+                  <Link key={idx} to="/services" replace>
+                    <div className="group relative px-6 py-4 bg-white/50 backdrop-blur-sm border border-neutral-100 rounded-2xl hover:bg-black hover:text-white transition-all duration-500 cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                        <service.icon className="w-4 h-4 text-neutral-600 group-hover:text-white" strokeWidth={1.5} />
+                      </div>
+                      <span className="text-sm font-bold tracking-tight">{service.label}</span>
+                      <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-            {/* Floating Achievement Card */}
-            <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-xl border border-neutral-100 animate-float">
-              <p className="text-4xl font-bold tracking-tighter">98%</p>
-              <p className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
-                Client Retention
-              </p>
-            </div>
-          </ScrollAnimation>
+          </ScrollReveal>
+
+          {/* DIRECT IMPACT BADGE */}
+          <ScrollReveal direction="up" delay={0.8}>
+              <div className="mt-16 flex items-center justify-center gap-3 text-neutral-400">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-neutral-200" />
+                  ))}
+                </div>
+                <p className="text-[11px] font-bold uppercase tracking-widest">
+                  <span className="text-black font-extrabold">50+ Brands</span> Engineered for Scale
+                </p>
+              </div>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* DOMAIN EXPERTISE (Services) */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-8">
-            <div className="max-w-xl">
-              <span className="text-primary font-bold tracking-[0.3em] uppercase text-[10px]">
-                Expertise
-              </span>
-              <h2 className="text-5xl font-bold tracking-tighter mt-4 leading-tight">
-                Mastering every touchpoint of the consumer journey.
-              </h2>
-            </div>
-            <Link
-              to="/services"
-              className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest border-b-2 border-neutral-100 pb-2 hover:border-primary transition-all"
-            >
-              Explore Services{" "}
-              <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-1">
-            {services.map((s, i) => (
-              <ScrollAnimation key={s.title} delay={i * 100}>
-                <div className="group p-10 bg-[#fafafa] hover:bg-white hover:shadow-[0_30px_60px_rgba(0,0,0,0.05)] transition-all duration-500 h-full border border-transparent hover:border-neutral-100 rounded-[2rem]">
-                  <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                    <s.icon strokeWidth={1.5} />
+      {/* 2. STATS SECTION - Elegant Counters */}
+      {/* Wrap everything in one stagger block to prevent visual pop-in */}
+      <section className="py-32 bg-black text-white border-y border-neutral-900">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <ScrollReveal direction="up" staggerChildren={0.1}>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+              {stats.map((s, i) => (
+                <div key={i} className="text-center group p-6 rounded-2xl glass-dark border-transparent hover:border-white/10 transition-colors">
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-2 text-white">
+                    <CountUp end={s.value} duration={2.5} suffix={s.suffix} enableScrollSpy scrollSpyOnce />
                   </div>
-                  <h3 className="text-xl font-bold mb-4 tracking-tight">
+                  <p className="text-xs md:text-sm text-neutral-400 font-medium">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+          
+          {/* STRATEGIC ALLIANCES - Subtle Trust Bar */}
+          <ScrollReveal direction="up" delay={0.4}>
+            <div className="mt-16 pt-16 border-t border-neutral-800/50">
+              <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-600 text-center mb-8">Ecosystem Partners</p>
+              <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 grayscale contrast-125">
+                <span className="text-xl font-black tracking-tighter">GOOGLE_ADS</span>
+                <span className="text-xl font-black tracking-tighter">META_BLUEPRINT</span>
+                <span className="text-xl font-black tracking-tighter">SHOPIFY_PLUS</span>
+                <span className="text-xl font-black tracking-tighter">LINKEDIN_MARKETING</span>
+                <span className="text-xl font-black tracking-tighter">HUBSPOT_PLATINUM</span>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 3. SERVICE CARDS - Subtle Hover States */}
+      <section className="py-32 bg-neutral-50">
+        <div className="container mx-auto px-6 max-w-7xl">
+          
+          <ScrollReveal direction="up">
+            <div className="mb-16 text-center max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 mb-4">
+                Mastering every touchpoint.
+              </h2>
+              <p className="text-neutral-500 text-lg">
+                We bridge the gap between technical precision and creative resonance.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {services.map((s, i) => (
+              <ScrollReveal key={s.title} direction="up" delay={i * 0.1}>
+                {/* 
+                  IMPLEMENTATION NOTE: 
+                  - Minimalist background (white on neutral-50)
+                  - Hover lift limited to -2px/4px visually via transform
+                  - Soft, premium shadow handling instead of high-contrast glowing borders 
+                */}
+                <div className="group bg-white rounded-2xl p-8 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl h-full border border-neutral-100">
+                  <div className="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-neutral-100 transition-transform duration-300 text-neutral-700">
+                    <s.icon strokeWidth={1.5} className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3 tracking-tight text-neutral-900">
                     {s.title}
                   </h3>
-                  <p className="text-neutral-500 font-light text-sm leading-relaxed mb-6">
+                  <p className="text-neutral-500 text-sm leading-relaxed">
                     {s.desc}
                   </p>
                 </div>
-              </ScrollAnimation>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* METRICS THAT MATTER */}
-      <section className="py-20 bg-neutral-900 text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
-            {stats.map((s) => (
-              <div key={s.label} className="text-center group">
-                <div className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 text-white group-hover:text-primary transition-colors duration-500">
-                  <Counter target={s.value} suffix={s.suffix} />
+      {/* 4. THE 360° PROTOCOL - Modern Process Section */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <ScrollReveal direction="up">
+            <div className="mb-20 text-center max-w-3xl mx-auto">
+              <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mb-6 block">The Methodology</span>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6">
+                The 360° Protocol.
+              </h2>
+              <p className="text-neutral-500 text-lg font-light leading-relaxed">
+                A disciplined four-phase maneuver engineered to move brands from obscurity to market dominance. 
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden lg:block absolute top-12 left-0 right-0 h-px bg-neutral-100 z-0" />
+            
+            {[
+              { step: "01", title: "Gap Audit", icon: Search, desc: "We deep-dive into your existing digital architecture to identify friction points and unclaimed market share." },
+              { step: "02", title: "Strategic Roadmap", icon: Target, desc: "We engineer a bespoke execution plan, selecting only the high-impact maneuvers that align with your ROI goals." },
+              { step: "03", title: "Precision Execution", icon: Zap, desc: "Our collective deploys cinematic creative and high-performance ads with institutional-grade accuracy." },
+              { step: "04", title: "Market Dominance", icon: Trophy, desc: "We scale what works, reinforcing your brand position until you command the categorical narrative." },
+            ].map((item, idx) => (
+              <ScrollReveal key={idx} delay={idx * 0.15} direction="up" className="relative z-10">
+                <div className="group text-center">
+                  <div className="w-16 h-16 bg-white border border-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-sm group-hover:bg-black group-hover:text-white transition-all duration-500 transform group-hover:-translate-y-2">
+                    <item.icon className="w-6 h-6" strokeWidth={1.5} />
+                  </div>
+                  <span className="text-[10px] font-bold text-primary tracking-widest uppercase mb-3 block">{item.step}</span>
+                  <h3 className="text-xl font-bold mb-4 tracking-tight">{item.title}</h3>
+                  <p className="text-neutral-500 text-sm leading-relaxed font-light">{item.desc}</p>
                 </div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-neutral-500 font-bold">
-                  {s.label}
-                </p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* SELECTED WORKS (Projects) */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-sm uppercase tracking-[0.5em] font-bold text-neutral-300 text-center mb-12 italic">
-            Curated Portfolio
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-12">
-            {projects.map((p, i) => (
-              <ScrollAnimation key={p.title} delay={i * 150}>
-                <div className="group cursor-pointer">
-                  <div className="relative aspect-[3/4] rounded-[2.5rem] overflow-hidden mb-8">
-                    <img
-                      src={p.img}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                      alt={p.title}
-                    />
-                    <div className="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all">
-                      <ArrowUpRight />
+      {/* 5. PORTFOLIO PREVIEW - Professional Image Grid */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="flex justify-between items-end mb-12">
+            <ScrollReveal direction="left">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900">
+                The Archive of Excellence
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal direction="right">
+              <Link to="/portfolio" replace className="text-sm font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-1">
+                View all cases <ArrowRight className="w-4 h-4" />
+              </Link>
+            </ScrollReveal>
+          </div>
+
+          <ScrollReveal direction="up" delay={0.2}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+              {projects.map((p, i) => (
+                <div key={i} className={`group relative overflow-hidden rounded-2xl cursor-pointer ${p.className || ''}`}>
+                  {/* Subtle 700ms Grayscale to Color transition + Barely noticeable 1.02 zoom */}
+                  <img
+                    src={p.img}
+                    alt={p.title}
+                    className="w-full h-full object-cover transition-all duration-1000 ease-out transform group-hover:scale-[1.03] grayscale group-hover:grayscale-0"
+                  />
+                  {/* Clean gradient overlay, appearing gently on hover (300ms) */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-white/70 font-medium mb-2 block">
+                        {p.cat}
+                      </span>
+                      <h4 className="text-white text-2xl font-bold tracking-tight flex items-center gap-2">
+                        {p.title}
+                        <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-100" />
+                      </h4>
                     </div>
                   </div>
-                  <span className="text-[10px] uppercase tracking-widest text-primary font-bold">
-                    {p.cat}
-                  </span>
-                  <h3 className="text-2xl font-bold tracking-tight mt-2">
-                    {p.title}
-                  </h3>
                 </div>
-              </ScrollAnimation>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 6. INVESTMENT PREVIEW - Direct Path to Pricing */}
+      <section className="py-32 bg-white border-y border-neutral-100">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <ScrollReveal direction="up">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+              <div className="max-w-2xl text-left">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mb-4 block">Scalable Partnerships</span>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 mb-6">Precision Tiers.</h2>
+                <p className="text-neutral-500 text-lg font-light leading-relaxed">
+                  Transparent investment structures engineered for every stage of your brand journey.
+                </p>
+              </div>
+              <Link to="/plans" replace>
+                <Button className="rounded-full bg-neutral-900 px-8 py-6 h-auto text-xs font-bold tracking-widest uppercase hover:bg-black active:scale-95 transition-transform">
+                  View Full Mandates <ArrowUpRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { name: "Starter Spark", price: "₹5,000+", desc: "For solo founders & startups." },
+              { name: "Strategic Growth", price: "₹25,000+", desc: "For emerging market leaders.", featured: true },
+              { name: "Market Dominance", price: "₹1,00,000+", desc: "For teams ready to lead." },
+            ].map((plan, i) => (
+              <ScrollReveal key={i} delay={i * 0.1} direction="up">
+                <div className={`p-10 rounded-[2.5rem] border transition-all duration-500 hover:shadow-2xl ${plan.featured ? 'bg-neutral-900 text-white border-black scale-105' : 'bg-neutral-50 border-neutral-100 text-neutral-900'}`}>
+                  <h3 className="text-xl font-bold mb-4">{plan.name}</h3>
+                  <div className="flex items-baseline gap-1 mb-6">
+                    <span className="text-4xl font-bold tracking-tighter">{plan.price}</span>
+                    <span className={`text-xs ${plan.featured ? 'text-neutral-400' : 'text-neutral-400'}`}>/mo</span>
+                  </div>
+                  <p className={`text-sm mb-10 font-light ${plan.featured ? 'text-neutral-300' : 'text-neutral-500'}`}>{plan.desc}</p>
+                  <Link to="/plans" replace>
+                    <button className={`w-full py-4 rounded-full font-bold text-[10px] tracking-widest uppercase transition-all active:scale-95 ${plan.featured ? 'bg-white text-black hover:bg-neutral-200' : 'bg-neutral-200 text-black hover:bg-neutral-300'}`}>
+                      Select Path
+                    </button>
+                  </Link>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* PRESTIGE TESTIMONIALS */}
-      <section className="py-20 bg-neutral-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <ScrollAnimation>
-              <div className="flex justify-center gap-1 mb-8">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star
-                    key={s}
-                    size={14}
-                    className="fill-primary text-primary"
-                  />
-                ))}
+      {/* 5. FINAL CTA SECTION - Conversion Optimized */}
+      <section className="py-32 bg-neutral-50 border-t border-neutral-100">
+        <div className="container mx-auto px-6 max-w-3xl text-center">
+          <ScrollReveal direction="up">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-neutral-900">
+              Ready to transcend the competition?
+            </h2>
+          </ScrollReveal>
+          
+          <ScrollReveal direction="up" delay={0.1}>
+            <p className="text-neutral-500 text-lg md:text-xl mb-10 font-light">
+              Limited slots available for Q3/Q4 strategic partnerships. Build your digital legacy today.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal direction="up" delay={0.2}>
+            <Link to="/contact" replace>
+              <button className="magnetic-btn bg-black text-white px-10 py-5 rounded-full font-medium text-lg hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] shadow-elevation-mid hover:shadow-elevation-high">
+                Secure Your Consultation
+              </button>
+            </Link>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* 5. DYNAMIC MARQUEE - Strategic Separator */}
+      <section className="py-20 bg-black overflow-hidden border-y border-neutral-900">
+        <div className="marquee-container">
+          <div className="marquee-content inline-flex items-center">
+            {["STRATEGY", "CREATIVE", "DIGITAL", "BRANDING", "DEVELOPMENT", "MARKETING", "STRATEGY", "CREATIVE", "DIGITAL", "BRANDING", "DEVELOPMENT", "MARKETING"].map((text, i) => (
+              <div key={i} className="flex items-center gap-8 mx-12">
+                <span className="text-5xl md:text-7xl font-bold tracking-tighter text-white/10 hover:text-white/40 transition-colors duration-700 cursor-default">
+                  {text}
+                </span>
+                <div className="w-3 h-3 rounded-full bg-white/10" />
               </div>
-              <h3 className="text-3xl md:text-5xl font-light italic text-neutral-800 leading-tight">
-                "360 Marketing didn't just provide a service; they provided a
-                roadmap to industry leadership. Our conversion metrics haven't
-                been the same since."
-              </h3>
-              <div className="mt-12">
-                <p className="font-bold text-lg tracking-tight">
-                  Sarah Johnson
-                </p>
-                <p className="text-xs uppercase tracking-widest text-neutral-400 mt-1">
-                  CEO, TechStart Global
-                </p>
-              </div>
-            </ScrollAnimation>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-6 text-center">
-          <ScrollAnimation>
-            <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-10">
-              Ready to transcend <br /> the competition?
-            </h2>
-            <p className="text-neutral-500 max-w-xl mx-auto mb-12 text-lg font-light">
-              Limited slots available for Q3/Q4 strategic partnerships. Let's
-              discuss your brand's future.
-            </p>
-            <Button
-              asChild
-              className="h-20 px-12 rounded-full bg-neutral-900 text-white text-xl hover:bg-primary transition-all shadow-2xl"
-            >
-              <Link to="/contact">Secure Your Consultation</Link>
-            </Button>
-          </ScrollAnimation>
+      {/* 6. FOOTER/NEWSLETTER SNIPPET */}
+      <section className="bg-black text-white py-16">
+        <div className="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row justify-between items-center gap-8">
+          <div>
+            <h3 className="text-2xl font-semibold mb-2 tracking-tight">Join the inner circle.</h3>
+            <p className="text-neutral-400 text-sm">Actionable insights sent straight to your inbox.</p>
+          </div>
+          <div className="w-full md:w-auto flex gap-2 max-w-md">
+            <input 
+              type="email"
+              placeholder="Email address"
+              className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-white/30 transition-colors outline-none text-sm"
+            />
+            <button className="px-6 py-3 bg-white text-black rounded-xl font-medium text-sm hover:bg-neutral-200 transition-colors duration-200">
+              Subscribe
+            </button>
+          </div>
         </div>
       </section>
+      
     </div>
   );
 };

@@ -19,10 +19,12 @@ const Footer = () => {
         {/* TOP SECTION: BRAND & NEWSLETTER */}
         <div className="grid lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-5 space-y-8">
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-black font-bold text-lg transition-transform group-hover:rotate-12">
-                360
-              </div>
+            <Link to="/" replace className="flex items-center gap-3 group">
+              <img 
+                src="/logo.png"
+                alt="360 Marketing Logo"
+                className="w-10 h-10 object-contain transition-transform group-hover:rotate-[360deg] duration-1000"
+              />
               <span className="font-bold tracking-tighter text-2xl text-white">
                 Marketing<span className="text-primary">.</span>
               </span>
@@ -65,10 +67,11 @@ const Footer = () => {
               Experience
             </h4>
             <ul className="space-y-4">
-              {["Services", "Plans", "Portfolio", "About"].map((item) => (
+              {["Services", "Portfolio", "Testimonials", "Plans", "About", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
                     to={`/${item.toLowerCase()}`}
+                    replace
                     className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 group text-sm"
                   >
                     {item}
@@ -89,28 +92,13 @@ const Footer = () => {
             </h4>
             <ul className="space-y-4 text-sm">
               <li>
-                <Link
-                  to="/privacy"
-                  className="text-neutral-400 hover:text-white transition-colors"
-                >
-                  Privacy Policy
-                </Link>
+                <span className="text-neutral-500 cursor-not-allowed">Privacy Policy</span>
               </li>
               <li>
-                <Link
-                  to="/terms"
-                  className="text-neutral-400 hover:text-white transition-colors"
-                >
-                  Terms of Service
-                </Link>
+                <span className="text-neutral-500 cursor-not-allowed">Terms of Service</span>
               </li>
               <li>
-                <Link
-                  to="/cookies"
-                  className="text-neutral-400 hover:text-white transition-colors"
-                >
-                  Cookie Policy
-                </Link>
+                <span className="text-neutral-500 cursor-not-allowed">Cookie Policy</span>
               </li>
             </ul>
           </div>
@@ -144,9 +132,9 @@ const Footer = () => {
                   className="h-4 w-4 text-primary mt-0.5"
                   strokeWidth={1.5}
                 />
-                <span className="leading-relaxed font-light">
+                <span className="leading-relaxed font-light text-white">
                   Level 5, Sky Tower, Business District,
-                  <br /> Mumbai, Maharashtra 400001
+                  <br /> Pune, Maharashtra 400001
                 </span>
               </li>
             </ul>
@@ -161,14 +149,16 @@ const Footer = () => {
 
           <div className="flex gap-4">
             {[
-              { icon: Linkedin, href: "#" },
-              { icon: Instagram, href: "#" },
-              { icon: Twitter, href: "#" },
-              { icon: Facebook, href: "#" },
+              { icon: Linkedin, href: "https://linkedin.com/company/360marketing" },
+              { icon: Instagram, href: "https://instagram.com/360marketing.in" },
+              { icon: Twitter, href: "https://twitter.com/360marketing" },
+              { icon: Facebook, href: "https://facebook.com/360marketing" },
             ].map(({ icon: Icon, href }, i) => (
               <a
                 key={i}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full border border-neutral-800 flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black hover:border-white transition-all duration-500"
               >
                 <Icon className="h-4 w-4" strokeWidth={1.5} />
