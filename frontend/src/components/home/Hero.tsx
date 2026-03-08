@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Typewriter } from "@/components/ui/typewriter-text";
 
 const Hero = () => {
     return (
@@ -25,11 +26,10 @@ const Hero = () => {
 
                 {/* Main Heading with Gradient Text */}
                 <h1
-                    className="animate-fade-in opacity-0 font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.05] tracking-tight mb-8 max-w-4xl mx-auto text-transparent bg-clip-text bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50 drop-shadow-sm"
+                    className="animate-fade-in opacity-0 font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.05] tracking-tight mb-8 max-w-4xl mx-auto text-transparent bg-clip-text bg-gradient-to-b from-foreground via-foreground/90 to-foreground/50 drop-shadow-sm min-h-[2.5em] md:min-h-[2.2em]"
                     style={{ animationDelay: "150ms", animationFillMode: 'forwards' }}
                 >
-                    Building the future<br className="hidden sm:block" />
-                    {" "}through technology.
+                    <Typewriter text="Building the future through technology." speed={70} />
                 </h1>
 
                 {/* Description */}
