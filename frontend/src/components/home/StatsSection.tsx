@@ -45,7 +45,7 @@ const stats = [
 
 const StatsSection = () => {
     return (
-        <section className="py-12 md:py-24 bg-background">
+        <section className="section-padding bg-background">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="bg-zinc-950 rounded-[2.5rem] py-16 px-8 relative overflow-hidden shadow-2xl">
                     {/* Background glow effect */}

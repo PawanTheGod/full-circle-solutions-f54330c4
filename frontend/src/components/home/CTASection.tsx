@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 const CTASection = () => {
     return (
-        <section className="py-24 bg-background">
+        <section className="section-padding bg-background">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <ScrollAnimation>
                     <div className="bg-secondary/5 border border-secondary/20 rounded-[2.5rem] py-20 px-8 text-center relative overflow-hidden">
