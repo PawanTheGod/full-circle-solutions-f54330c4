@@ -121,7 +121,7 @@ const Plans = () => {
                     >
                       {plan.desc}
                     </p>
-                    <div className="flex items-baseline gap-1 mb-8">
+                    <div className="flex items-baseline gap-1">
                       <span className="text-5xl font-extrabold tracking-tighter">
                         {plan.price}
                       </span>
@@ -131,10 +131,33 @@ const Plans = () => {
                         {plan.period}
                       </span>
                     </div>
+                  </CardHeader>
+
+                  <CardContent className="p-10 pt-0 flex flex-col h-full">
+                    <div
+                      className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`}
+                    />
+
+                    <ul className="space-y-5 mb-12 flex-grow">
+                      {plan.features.map((f) => (
+                        <li key={f} className="flex items-center gap-3 group">
+                          <div
+                            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlighted ? "bg-primary text-white" : "bg-neutral-900 text-white"}`}
+                          >
+                            <Check className="h-3 w-3" />
+                          </div>
+                          <span
+                            className={`text-sm font-light tracking-wide ${plan.highlighted ? "text-neutral-300" : "text-neutral-600"}`}
+                          >
+                            {f}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
 
                     <Button
                       asChild
-                      className={`w-full h-14 mb-8 rounded-xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
+                      className={`w-full h-14 rounded-xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
                         plan.highlighted
                           ? "bg-white text-black hover:bg-primary hover:text-white shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                           : "bg-neutral-900 text-white hover:bg-black"
@@ -151,29 +174,6 @@ const Plans = () => {
                         />
                       </Link>
                     </Button>
-                  </CardHeader>
-
-                  <CardContent className="p-10 pt-0 flex flex-col h-full">
-                    <div
-                      className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`}
-                    />
-
-                    <ul className="space-y-5 flex-grow">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-center gap-3 group">
-                          <div
-                            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlighted ? "bg-primary text-white" : "bg-neutral-900 text-white"}`}
-                          >
-                            <Check className="h-3 w-3" />
-                          </div>
-                          <span
-                            className={`text-sm font-light tracking-wide ${plan.highlighted ? "text-neutral-300" : "text-neutral-600"}`}
-                          >
-                            {f}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
                   </CardContent>
                 </Card>
               </ScrollAnimation>
