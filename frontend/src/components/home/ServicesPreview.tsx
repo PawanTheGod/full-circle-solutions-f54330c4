@@ -29,12 +29,15 @@ const ServicesPreview = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {services.map((s, i) => (
                         <ScrollAnimation key={s.title} delay={i * 100}>
-                            <Card className="group relative bg-background border-border/50 hover:border-secondary/30 shadow-sm hover:shadow-2xl hover:shadow-secondary/5 hover:-translate-y-2 transition-all duration-500 h-full rounded-2xl overflow-hidden">
+                            <Card className="group relative bg-gradient-to-b from-muted/50 to-background border-border/40 hover:border-secondary/50 shadow-sm hover:shadow-2xl hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-500 h-full rounded-2xl overflow-hidden backdrop-blur-sm">
+                                {/* Subtle inner glow effect for SaaS feel */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
                                 <CardContent className="p-8 flex flex-col items-start gap-5 h-full relative z-10">
-                                    <div className="h-14 w-14 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-500">
+                                    <div className="h-14 w-14 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-inner">
                                         <s.icon className="h-7 w-7" />
                                     </div>
-                                    <h3 className="font-display font-bold text-xl text-foreground mt-2">{s.title}</h3>
+                                    <h3 className="font-display font-bold text-xl text-foreground mt-2 group-hover:text-secondary transition-colors duration-300">{s.title}</h3>
                                     <p className="text-sm text-muted-foreground leading-relaxed flex-grow">{s.desc}</p>
                                     <Link to="/services" className="text-sm font-semibold text-secondary hover:text-secondary/80 flex items-center gap-2 mt-4 group/link">
                                         Learn More <ArrowRight className="h-4 w-4 group-hover/link:translate-x-1 transition-transform" />

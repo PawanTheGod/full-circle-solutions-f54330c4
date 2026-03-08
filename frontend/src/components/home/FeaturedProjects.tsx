@@ -26,14 +26,18 @@ const FeaturedProjects = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {projects.map((p, i) => (
                         <ScrollAnimation key={p.title} delay={i * 100}>
-                            <Link to="/portfolio" className="group block relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-border/50 bg-muted/10">
-                                <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                                    <span className="text-xs font-bold tracking-wider text-secondary uppercase mb-3 drop-shadow-md">{p.category}</span>
-                                    <h3 className="font-display font-extrabold text-white text-2xl flex items-center justify-between">
-                                        {p.title}
-                                        <ArrowRight className="h-5 w-5 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                                    </h3>
+                            <Link to="/portfolio" className="group block relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg hover:shadow-2xl hover:shadow-secondary/10 transition-all duration-500 transform hover:-translate-y-2 border border-border/40 hover:border-secondary/40 bg-muted/20">
+                                <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <span className="text-xs font-bold tracking-[0.2em] text-secondary uppercase mb-3 drop-shadow-md block">{p.category}</span>
+                                        <h3 className="font-display font-extrabold text-white text-2xl flex items-center justify-between">
+                                            {p.title}
+                                            <div className="h-10 w-10 rounded-full bg-secondary/20 flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 backdrop-blur-sm border border-secondary/30">
+                                                <ArrowRight className="h-5 w-5 text-white" />
+                                            </div>
+                                        </h3>
+                                    </div>
                                 </div>
                             </Link>
                         </ScrollAnimation>

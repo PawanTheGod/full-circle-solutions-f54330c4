@@ -8,17 +8,20 @@ const CTASection = () => {
         <section className="section-padding bg-background">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <ScrollAnimation>
-                    <div className="bg-secondary/5 border border-secondary/20 rounded-[2.5rem] py-20 px-8 text-center relative overflow-hidden">
-                        {/* Decorative glow */}
-                        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-secondary/20 rounded-full blur-3xl pointer-events-none" />
+                    <div className="bg-primary/5 border border-primary/10 rounded-[2.5rem] py-24 px-8 text-center relative overflow-hidden backdrop-blur-md shadow-2xl shadow-primary/5">
+                        {/* Decorative glowing blobs */}
+                        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] pointer-events-none" />
+                        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
                         <div className="relative z-10 max-w-3xl mx-auto">
-                            <h2 className="font-display text-4xl md:text-6xl font-extrabold text-foreground mb-6 tracking-tight">Ready to build something legendary?</h2>
-                            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-6 tracking-tight drop-shadow-sm">
+                                Ready to build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/70">legendary?</span>
+                            </h2>
+                            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
                                 Let's discuss how we can help you achieve your goals with premium digital marketing and software development.
                             </p>
-                            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-10 h-14 text-lg font-medium shadow-lg shadow-secondary/25 transition-all w-full sm:w-auto group">
-                                <Link to="/contact">
+                            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-10 h-14 text-lg font-semibold shadow-xl shadow-secondary/25 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-secondary/40 active:translate-y-0 active:scale-95 w-full sm:w-auto group">
+                                <Link to="/contact" className="flex items-center justify-center">
                                     Start Your Project
                                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
