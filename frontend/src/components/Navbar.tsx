@@ -70,7 +70,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                replace
+
                 className={`relative px-4 py-2 rounded-full text-[12px] uppercase tracking-widest font-bold transition-all duration-300 ${
                   isActive
                     ? "text-neutral-900"
@@ -134,7 +134,7 @@ const Navbar = () => {
                     <Link
                       key={link.path}
                       to={link.path}
-                      replace
+      
                       onClick={() => setOpen(false)}
                       style={{ transitionDelay: `${i * 50}ms` }}
                       className={`group flex items-center justify-between py-2 text-3xl font-extrabold tracking-tighter transition-all active:scale-95 ${

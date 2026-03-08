@@ -155,7 +155,7 @@ const Plans = () => {
                     ))}
                   </div>
 
-                  <Link to="/contact" replace>
+                  <Link to="/contact">
                     <button className={`w-full py-5 rounded-full font-bold text-sm tracking-widest transition-all active:scale-95 duration-300
                       ${plan.featured 
                         ? "bg-neutral-900 text-white hover:bg-black shadow-lg" 
@@ -209,7 +209,7 @@ const Plans = () => {
                 <div className="absolute -bottom-8 -left-8 bg-white p-10 rounded-[2.5rem] shadow-2xl text-neutral-900 hidden md:block max-w-xs">
                   <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-2">Hybrid Mandate</p>
                   <p className="text-lg font-bold leading-tight">Combine Digital Mastery with Physical Presence.</p>
-                  <Link to="/contact" replace>
+                  <Link to="/contact">
                     <button className="mt-6 flex items-center gap-2 text-xs font-black border-b-2 border-black pb-1 hover:gap-4 transition-all active:scale-95">
                       REQUEST HYBRID QUOTE <ArrowUpRight className="w-4 h-4" />
                     </button>
@@ -262,12 +262,12 @@ const Plans = () => {
               engineered for institutional-grade scaling.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/contact" replace>
+              <Link to="/contact">
                 <button className="magnetic-btn bg-black text-white px-12 py-5 rounded-full font-bold shadow-xl hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02]">
                   Initiate Mandate
                 </button>
               </Link>
-              <Link to="/services" replace>
+              <Link to="/services">
                 <button className="flex items-center gap-2 px-12 py-5 rounded-full font-bold text-neutral-700 hover:bg-white hover:text-black transition-all active:scale-95 hover:scale-[1.02] border border-neutral-100 shadow-sm">
                   Review Capabilities
                   <ArrowUpRight className="w-5 h-5" />

@@ -128,7 +128,7 @@ const Index = () => {
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12 pb-16">
             <ScrollReveal direction="up" delay={0.3}>
-              <Link to="/contact" replace>
+              <Link to="/contact">
                 <button className="magnetic-btn bg-black text-white px-12 py-5 rounded-full font-bold shadow-2xl hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] uppercase tracking-widest text-sm flex items-center gap-2 group">
                   Initiate Evolution
                   <div className="w-1.5 h-1.5 rounded-full bg-white group-hover:animate-ping" />
@@ -136,7 +136,7 @@ const Index = () => {
               </Link>
             </ScrollReveal>
             <ScrollReveal direction="up" delay={0.4}>
-              <Link to="/plans" replace>
+              <Link to="/plans">
                 <button className="glass-light px-12 py-5 rounded-full font-bold text-neutral-800 hover:bg-white hover:text-black transition-all active:scale-95 hover:scale-[1.02] border border-neutral-100 shadow-xl uppercase tracking-widest text-sm backdrop-blur-md">
                   Investment Strategies
                 </button>
@@ -154,7 +154,7 @@ const Index = () => {
                   { label: "Cinematic Creative", icon: Camera },
                   { label: "Digital Architecture", icon: Code },
                 ].map((service, idx) => (
-                  <Link key={idx} to="/services" replace>
+                  <Link key={idx} to="/services">
                     <div className="group relative px-6 py-4 bg-white/50 backdrop-blur-sm border border-neutral-100 rounded-2xl hover:bg-black hover:text-white transition-all duration-500 cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-1 flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center group-hover:bg-white/10 transition-colors">
                         <service.icon className="w-4 h-4 text-neutral-600 group-hover:text-white" strokeWidth={1.5} />
@@ -310,7 +310,7 @@ const Index = () => {
               </h2>
             </ScrollReveal>
             <ScrollReveal direction="right">
-              <Link to="/portfolio" replace className="text-sm font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-1">
+              <Link to="/portfolio" className="text-sm font-medium text-neutral-500 hover:text-black transition-colors flex items-center gap-1">
                 View all cases <ArrowRight className="w-4 h-4" />
               </Link>
             </ScrollReveal>
@@ -357,7 +357,7 @@ const Index = () => {
                   Transparent investment structures engineered for every stage of your brand journey.
                 </p>
               </div>
-              <Link to="/plans" replace>
+              <Link to="/plans">
                 <Button className="rounded-full bg-neutral-900 px-8 py-6 h-auto text-xs font-bold tracking-widest uppercase hover:bg-black active:scale-95 transition-transform">
                   View Full Mandates <ArrowUpRight className="ml-2 w-4 h-4" />
                 </Button>
@@ -379,7 +379,7 @@ const Index = () => {
                     <span className={`text-xs ${plan.featured ? 'text-neutral-400' : 'text-neutral-400'}`}>/mo</span>
                   </div>
                   <p className={`text-sm mb-10 font-light ${plan.featured ? 'text-neutral-300' : 'text-neutral-500'}`}>{plan.desc}</p>
-                  <Link to="/plans" replace>
+                  <Link to="/plans">
                     <button className={`w-full py-4 rounded-full font-bold text-[10px] tracking-widest uppercase transition-all active:scale-95 ${plan.featured ? 'bg-white text-black hover:bg-neutral-200' : 'bg-neutral-200 text-black hover:bg-neutral-300'}`}>
                       Select Path
                     </button>
@@ -407,7 +407,7 @@ const Index = () => {
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.2}>
-            <Link to="/contact" replace>
+            <Link to="/contact">
               <button className="magnetic-btn bg-black text-white px-10 py-5 rounded-full font-medium text-lg hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] shadow-elevation-mid hover:shadow-elevation-high">
                 Secure Your Consultation
               </button>

@@ -113,6 +113,17 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
+
+  /* GPU-accelerated smooth rendering for animated content */
+  main {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  main section {
+    contain: layout style;
+    backface-visibility: hidden;
+  }
 }
 
 @layer utilities {

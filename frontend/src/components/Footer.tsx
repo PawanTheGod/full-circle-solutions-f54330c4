@@ -19,7 +19,7 @@ const Footer = () => {
         {/* TOP SECTION: BRAND & NEWSLETTER */}
         <div className="grid lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-5 space-y-8">
-            <Link to="/" replace className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group">
               <img 
                 src="/logo.png"
                 alt="360 Marketing Logo"
@@ -71,7 +71,7 @@ const Footer = () => {
                 <li key={item}>
                   <Link
                     to={`/${item.toLowerCase()}`}
-                    replace
+                   
                     className="text-neutral-400 hover:text-white transition-colors flex items-center gap-1 group text-sm"
                   >
                     {item}

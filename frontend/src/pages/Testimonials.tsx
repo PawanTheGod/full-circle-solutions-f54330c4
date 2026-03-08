@@ -158,7 +158,7 @@ const Testimonials = () => {
               Experience the same level of strategic architecture that transformed 
               these industry leaders into market dominators.
             </p>
-            <Link to="/contact" replace>
+            <Link to="/contact">
               <button className="magnetic-btn bg-white text-black px-12 py-5 rounded-full font-bold hover:bg-neutral-200 transition-all active:scale-95 hover:scale-[1.02] shadow-xl">
                 Start Your Journey
               </button>

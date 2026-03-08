@@ -206,7 +206,7 @@ const Services = () => {
                 business card design, brochure architecture, and newspaper 
                 ad placements for brands that require a physical footprint.
               </p>
-              <Link to="/contact" replace>
+              <Link to="/contact">
                 <button className="magnetic-btn bg-white text-black hover:bg-neutral-200 px-10 py-5 rounded-full font-medium text-lg transition-all active:scale-95 hover:scale-[1.02]">
                   Discuss Custom Mandate
                 </button>
@@ -234,12 +234,12 @@ const Services = () => {
 
           <ScrollReveal direction="up" delay={0.2}>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/contact" replace>
+              <Link to="/contact">
                 <button className="magnetic-btn bg-black text-white px-10 py-5 rounded-full font-medium text-lg hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] shadow-elevation-mid">
                   Request Partnership
                 </button>
               </Link>
-              <Link to="/portfolio" replace>
+              <Link to="/portfolio">
                 <button className="group flex items-center gap-2 px-10 py-5 rounded-full font-medium text-lg text-neutral-600 hover:text-black hover:bg-neutral-50 transition-all active:scale-95 hover:scale-[1.02] border border-neutral-100">
                   Explore Case Studies
                   <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />

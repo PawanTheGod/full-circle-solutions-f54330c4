@@ -214,7 +214,7 @@ const Portfolio = () => {
             <p className="text-neutral-500 text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto">
               Limited slots available for Q3/Q4 strategic partnerships. Let's redefine what's possible for your brand.
             </p>
-            <Link to="/contact" replace>
+            <Link to="/contact">
               <button className="magnetic-btn bg-black text-white px-12 py-5 rounded-full font-medium text-lg hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] shadow-elevation-mid">
                 Start Your Mandate
               </button>

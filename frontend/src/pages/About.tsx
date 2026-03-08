@@ -92,7 +92,7 @@ const About = () => {
                   </p>
                 </div>
                 <div className="pt-10">
-                  <Link to="/portfolio" replace className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest border-b border-neutral-200 pb-2 hover:border-black transition-all max-w-fit">
+                  <Link to="/portfolio" className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest border-b border-neutral-200 pb-2 hover:border-black transition-all max-w-fit">
                     View Our Legacy
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -186,7 +186,7 @@ const About = () => {
           
           <ScrollReveal>
             <div className="text-center">
-              <Link to="/contact" replace>
+              <Link to="/contact">
                 <button className="magnetic-btn px-12 py-5 bg-black text-white rounded-full font-bold shadow-xl hover:bg-neutral-900 transition-all active:scale-95 hover:scale-[1.02] inline-flex items-center gap-2">
                   Join Our Team
                   <ArrowUpRight className="w-5 h-5" />
