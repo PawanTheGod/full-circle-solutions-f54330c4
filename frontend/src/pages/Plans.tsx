@@ -1,115 +1,127 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import PageHeader from "@/components/PageHeader";
 import ScrollAnimation from "@/components/ScrollAnimation";
-import { Check } from "lucide-react";
+import { Check, ArrowRight, HelpCircle } from "lucide-react";
 
 const plans = [
   {
-    name: "Personal",
-    badge: "For Individuals",
+    name: "Growth Retainer",
+    badge: "For Solo Founders",
     price: "₹5,000",
-    period: "/month",
+    period: "/mo",
     highlighted: false,
+    desc: "A baseline digital presence managed by experts.",
     features: [
-      "Social Media Content Creation",
-      "LinkedIn Profile Optimization",
-      "Basic Graphic Design",
-      "Monthly Strategy Call",
-      "Email Support",
+      "Social Media Content Strategy",
+      "LinkedIn Profile Authority",
+      "Executive Graphic Assets",
+      "Monthly Strategy Consultation",
     ],
-    cta: "Get Started",
+    cta: "Initiate Plan",
   },
   {
-    name: "Enterprise",
-    badge: "Most Popular",
+    name: "Market Leader",
+    badge: "Our Premiere Tier",
     price: "₹50,000",
-    period: "/month",
+    period: "/mo",
     highlighted: true,
+    desc: "Full-scale aggressive growth and web dominance.",
     features: [
-      "Everything in Personal",
-      "Website Development",
-      "Advanced Content Marketing",
-      "SEO & Google Ads",
-      "Custom Graphics & Branding",
-      "Dedicated Account Manager",
-      "Priority Support",
-      "Monthly Analytics Reports",
+      "Everything in Growth",
+      "Bespoke Website Development",
+      "Performance SEO & Ads",
+      "Dedicated Creative Lead",
+      "Priority Launch Cycle",
     ],
-    cta: "Get Started",
+    cta: "Secure Dominance",
   },
   {
-    name: "Custom",
-    badge: "For Agencies",
-    price: "Custom",
-    period: " Pricing",
+    name: "Custom Mandate",
+    badge: "For Organizations",
+    price: "PoA",
+    period: "",
     highlighted: false,
+    desc: "Tailored infrastructure for enterprise-grade needs.",
     features: [
-      "Fully Customized Solutions",
-      "White Label Services",
-      "Unlimited Revisions",
-      "24/7 Support",
-      "Dedicated Team",
+      "White-Label Agency Services",
+      "Global Media Buying",
+      "24/7 Priority Concierge",
+      "Unlimited Creative Revisions",
     ],
-    cta: "Contact Us",
+    cta: "Request Proposal",
   },
 ];
 
 const faqs = [
-  { q: "Can I upgrade or downgrade my plan?", a: "Yes, you can switch plans at any time. Changes take effect from the next billing cycle." },
-  { q: "Is there a minimum contract period?", a: "No, all plans are month-to-month. You can cancel anytime without any penalties." },
-  { q: "What payment methods do you accept?", a: "We accept UPI, bank transfers, credit/debit cards, and PayPal for international clients." },
-  { q: "Do you offer discounts for annual plans?", a: "Yes! Annual plans come with a 15% discount compared to monthly billing." },
-  { q: "What's included in the Custom plan?", a: "The Custom plan is tailored to your specific needs. Contact us for a detailed proposal based on your requirements." },
-  { q: "How soon can I get started?", a: "Once payment is confirmed, we typically onboard new clients within 2-3 business days." },
+  { q: "Can I adjust my retainer tier?", a: "Flexibility is core to our partnership. Retainer tiers can be adjusted with a 14-day notice prior to the next billing cycle." },
+  { q: "Is there a long-term commitment?", a: "We believe in results over restrictions. All partnerships are on a month-to-month basis unless a multi-quarter roadmap is requested." },
+  { q: "How is onboarding handled?", a: "New mandates go through a 48-hour 'Deep-Dive' period where we audit your current presence before execution begins." },
+  { q: "What about custom ad spend?", a: "Pricing covers our management and creative fee. Direct ad spend budgets are managed transparently through your own accounts." },
 ];
 
 const Plans = () => {
   return (
-    <div>
-      <PageHeader title="Choose Your Plan" subtitle="Flexible pricing for individuals and enterprises" />
+    <div className="bg-[#fafafa]">
+      <PageHeader 
+        category="Retainers"
+        title="Investment tiers for global growth" 
+        subtitle="Transparent pricing designed for ambitious brands ready to transcend the ordinary." 
+      />
 
-      <section className="section-padding bg-background">
-        <div className="container mx-auto container-padding">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {/* PRICING SECTION */}
+      <section className="pb-32 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {plans.map((plan, i) => (
               <ScrollAnimation key={plan.name} delay={i * 100}>
-                <Card className={`h-full relative ${plan.highlighted ? "border-secondary shadow-xl shadow-secondary/10 scale-105" : "border-border"}`}>
-                  {plan.highlighted && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-xs font-bold px-4 py-1 rounded-full">
+                <Card className={`h-full border-none transition-all duration-500 rounded-[2.5rem] overflow-hidden ${
+                  plan.highlighted 
+                    ? "bg-neutral-900 text-white shadow-2xl scale-105 z-10" 
+                    : "bg-neutral-50 text-neutral-900 hover:bg-neutral-100"
+                }`}>
+                  <CardHeader className="p-10 pb-6 text-left">
+                    <span className={`text-[10px] uppercase tracking-[0.3em] font-bold mb-6 block ${plan.highlighted ? "text-primary" : "text-neutral-400"}`}>
                       {plan.badge}
-                    </div>
-                  )}
-                  <CardHeader className="text-center pb-2">
-                    {!plan.highlighted && (
-                      <span className="text-xs text-muted-foreground font-medium mb-2">{plan.badge}</span>
-                    )}
-                    <CardTitle className="font-display text-xl">{plan.name}</CardTitle>
-                    <div className="mt-4">
-                      <span className="font-display text-4xl font-bold text-foreground">{plan.price}</span>
-                      <span className="text-muted-foreground text-sm">{plan.period}</span>
+                    </span>
+                    <CardTitle className="text-3xl font-bold tracking-tighter mb-4">{plan.name}</CardTitle>
+                    <p className={`text-sm font-light leading-relaxed mb-8 ${plan.highlighted ? "text-neutral-400" : "text-neutral-500"}`}>
+                      {plan.desc}
+                    </p>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-5xl font-extrabold tracking-tighter">{plan.price}</span>
+                      <span className={`text-sm font-medium ${plan.highlighted ? "text-neutral-500" : "text-neutral-400"}`}>{plan.period}</span>
                     </div>
                   </CardHeader>
-                  <CardContent className="pt-6">
-                    <ul className="space-y-3 mb-8">
+
+                  <CardContent className="p-10 pt-0 flex flex-col h-full">
+                    <div className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`} />
+                    
+                    <ul className="space-y-5 mb-12 flex-grow">
                       {plan.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm">
-                          <Check className="h-4 w-4 text-secondary mt-0.5 shrink-0" />
-                          <span className="text-muted-foreground">{f}</span>
+                        <li key={f} className="flex items-center gap-3 group">
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlighted ? "bg-primary text-white" : "bg-neutral-900 text-white"}`}>
+                            <Check className="h-3 w-3" />
+                          </div>
+                          <span className={`text-sm font-light tracking-wide ${plan.highlighted ? "text-neutral-300" : "text-neutral-600"}`}>
+                            {f}
+                          </span>
                         </li>
                       ))}
                     </ul>
+
                     <Button
                       asChild
-                      className={`w-full rounded-full ${
+                      className={`h-16 rounded-2xl text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 group ${
                         plan.highlighted
-                          ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-                          : "bg-primary hover:bg-primary/90 text-primary-foreground"
+                          ? "bg-white text-black hover:bg-primary hover:text-white"
+                          : "bg-neutral-900 text-white hover:bg-black"
                       }`}
                     >
-                      <Link to="/contact">{plan.cta}</Link>
+                      <Link to="/contact" className="flex items-center justify-center gap-2">
+                        {plan.cta} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -119,32 +131,55 @@ const Plans = () => {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section-padding bg-muted">
-        <div className="container mx-auto container-padding max-w-3xl">
-          <ScrollAnimation>
-            <h2 className="font-display text-3xl font-bold text-center text-foreground mb-10">Frequently Asked Questions</h2>
-          </ScrollAnimation>
-          <Accordion type="single" collapsible className="space-y-2">
-            {faqs.map((faq, i) => (
-              <ScrollAnimation key={i} delay={i * 50}>
-                <AccordionItem value={`faq-${i}`} className="bg-card rounded-lg border px-4">
-                  <AccordionTrigger className="text-sm font-medium text-card-foreground">{faq.q}</AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground">{faq.a}</AccordionContent>
-                </AccordionItem>
+      {/* LUXE FAQ SECTION */}
+      <section className="py-32 bg-neutral-900 text-white">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-16">
+            <div className="lg:col-span-5">
+              <ScrollAnimation>
+                <HelpCircle className="text-primary mb-6" size={40} strokeWidth={1} />
+                <h2 className="text-5xl font-bold tracking-tighter mb-6">Partnership <br />Clarifications.</h2>
+                <p className="text-neutral-400 text-lg font-light max-w-md">
+                  We believe in radical transparency. If your question isn't addressed here, our concierge is available for a direct call.
+                </p>
+                <Button variant="link" className="text-primary p-0 h-auto mt-8 font-bold tracking-widest text-xs uppercase group">
+                  Contact Concierge <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" size={14} />
+                </Button>
               </ScrollAnimation>
-            ))}
-          </Accordion>
+            </div>
+            
+            <div className="lg:col-span-7 space-y-4">
+              {faqs.map((faq, i) => (
+                <ScrollAnimation key={i} delay={i * 100}>
+                  <details className="group border-b border-neutral-800 pb-6 transition-all">
+                    <summary className="list-none cursor-pointer flex justify-between items-center py-6 text-xl font-medium text-neutral-200 hover:text-white transition-colors">
+                      {faq.q}
+                      <span className="text-2xl font-light group-open:rotate-45 transition-transform duration-500">+</span>
+                    </summary>
+                    <p className="text-neutral-500 font-light leading-relaxed text-lg max-w-2xl animate-in fade-in slide-in-from-top-2 duration-500">
+                      {faq.a}
+                    </p>
+                  </details>
+                </ScrollAnimation>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="py-20 bg-secondary text-secondary-foreground">
-        <div className="container mx-auto container-padding text-center">
+      {/* FINAL CTA */}
+      <section className="py-40 bg-white overflow-hidden relative">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
+        <div className="container mx-auto px-6 text-center">
           <ScrollAnimation>
-            <h2 className="font-display text-3xl font-bold mb-4">Ready to get started?</h2>
-            <p className="text-secondary-foreground/80 mb-8">Choose a plan and start growing your business today.</p>
-            <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-full px-8">
-              <Link to="/contact">Contact Us</Link>
+            <h2 className="text-6xl md:text-7xl font-extrabold tracking-tighter mb-8 text-neutral-900">
+              Your evolution <br />begins now.
+            </h2>
+            <p className="text-neutral-500 max-w-lg mx-auto mb-12 text-lg font-light">
+              Don't just compete. Transcend the market with a 360° strategy.
+            </p>
+            <Button asChild className="h-20 px-12 rounded-full bg-black text-white text-lg hover:bg-primary transition-all shadow-2xl">
+              <Link to="/contact">Schedule Private Consultation</Link>
             </Button>
           </ScrollAnimation>
         </div>

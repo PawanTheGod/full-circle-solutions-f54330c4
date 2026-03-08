@@ -1,221 +1,296 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import PageHeader from "@/components/PageHeader";
-import ScrollAnimation from "@/components/ScrollAnimation";
-import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Linkedin, Instagram, Twitter, Facebook } from "lucide-react";
+import { useState, useEffect, type ComponentType, type SVGProps } from "react"
+import { Helmet } from "react-helmet"
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+  Loader2,
+  CheckCircle,
+  ArrowRight,
+  ExternalLink
+} from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+type IconType = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string; strokeWidth?: number | string }>
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
 
 const faqs = [
-  { q: "How quickly can you start on my project?", a: "We typically begin within 2-3 business days of confirming your requirements and payment." },
-  { q: "Do you work with startups?", a: "Absolutely! We love working with startups and offer special packages tailored for early-stage businesses." },
-  { q: "What's your typical project timeline?", a: "Timelines vary by project. Most marketing campaigns launch within 1-2 weeks, while websites take 3-6 weeks." },
-  { q: "Can I see examples of your work first?", a: "Of course! Visit our Portfolio page to see case studies, or we can share specific examples relevant to your industry." },
-];
+  { q: "How quickly can you start?", a: "Most strategic projects commence within 2–3 business days following our initial alignment call." },
+  { q: "Do you work with startups?", a: "Exclusively. We offer bespoke growth packages tailored for high-potential emerging enterprises." },
+  { q: "What is the typical timeline?", a: "High-impact campaigns typically transition from concept to market launch within 7–14 days." },
+  { q: "Can I review your portfolio?", a: "Certainly. Our curated collection of global success stories is available on the Portfolio page." }
+]
 
-const Contact = () => {
-  const { toast } = useToast();
-  const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+export default function Contact() {
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" })
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  useEffect(() => { 
+    window.scrollTo({ top: 0, behavior: "smooth" }) 
+  }, [])
 
   const validate = () => {
-    const e: Record<string, string> = {};
-    if (!form.name.trim()) e.name = "Name is required";
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = "Valid email is required";
-    if (!form.message.trim()) e.message = "Message is required";
-    setErrors(e);
-    return Object.keys(e).length === 0;
-  };
+    const e: Record<string, string> = {}
+    if (!form.name) e.name = "Identity is required"
+    if (!form.email || !/\S+@\S+\.\S+/.test(form.email)) e.email = "Valid professional email required"
+    if (!form.message) e.message = "Please share your project vision"
+    setErrors(e)
+    return Object.keys(e).length === 0
+  }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-    setSubmitting(true);
+  async function submit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!validate()) return
+    setLoading(true)
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok && data.success) {
-        toast({ title: "Message sent! ✅", description: data.message || "We'll get back to you within 24 hours." });
-        setForm({ name: "", email: "", phone: "", service: "", message: "" });
-        setErrors({});
-      } else {
-        toast({
-          title: "Something went wrong",
-          description: data.message || "Please try again or email us directly.",
-          variant: "destructive",
-        });
-      }
-    } catch {
-      toast({
-        title: "Network Error",
-        description: "Could not reach the server. Please check your connection or email us directly.",
-        variant: "destructive",
-      });
+        body: JSON.stringify(form)
+      })
+      if (!res.ok) throw new Error()
+      setSuccess(true)
+      setForm({ name: "", email: "", phone: "", service: "", message: "" })
+    } catch (err) {
+      alert("Connectivity issue. Please reach us via direct email.")
     } finally {
-      setSubmitting(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
-    <div>
-      <PageHeader title="Get In Touch" subtitle="Let's discuss how we can help your business grow" />
+    <div className="min-h-screen bg-[#fafafa] text-[#1a1a1a] selection:bg-black selection:text-white">
+      <Helmet><title>Contact | 360 Marketing Agency</title></Helmet>
 
-      <section className="section-padding bg-background">
-        <div className="container mx-auto container-padding">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Form */}
-            <ScrollAnimation animation="fade-in-left">
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Send us a message</h2>
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <Input
-                    placeholder="Your Name *"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className={errors.name ? "border-destructive" : ""}
-                  />
-                  {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
-                </div>
-                <div>
-                  <Input
-                    type="email"
-                    placeholder="Email Address *"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className={errors.email ? "border-destructive" : ""}
-                  />
-                  {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
-                </div>
-                <Input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                />
-                <Select value={form.service} onValueChange={(v) => setForm({ ...form, service: v })}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a service" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="digital">Digital Marketing</SelectItem>
-                    <SelectItem value="content">Content Creation</SelectItem>
-                    <SelectItem value="creative">Creative Services</SelectItem>
-                    <SelectItem value="web">Web Development</SelectItem>
-                    <SelectItem value="physical">Physical Marketing</SelectItem>
-                    <SelectItem value="consultation">Not Sure / Consultation</SelectItem>
-                  </SelectContent>
-                </Select>
-                <div>
-                  <Textarea
-                    placeholder="Your Message *"
-                    rows={5}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className={errors.message ? "border-destructive" : ""}
-                  />
-                  {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
-                </div>
-                <Button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-full"
-                  size="lg"
-                >
-                  {submitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </ScrollAnimation>
+      {/* LUXE HEADER */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent -z-10" />
+        <div className="container mx-auto px-6 text-center">
+          <span className="text-[10px] uppercase tracking-[0.5em] text-primary font-bold mb-6 block">Direct Channel</span>
+          <h1 className="text-5xl md:text-8xl font-extrabold tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-500">
+            Let's build <br className="hidden md:block" /> something legendary.
+          </h1>
+          <p className="text-lg text-neutral-500 max-w-2xl mx-auto font-light leading-relaxed">
+            Elevate your market presence with 360° strategy. Our elite team is ready to transform your vision into global dominance.
+          </p>
+        </div>
+      </section>
 
-            {/* Info */}
-            <ScrollAnimation animation="fade-in-right">
-              <h2 className="font-display text-2xl font-bold text-foreground mb-6">Contact Information</h2>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
-                    <Mail className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Email</p>
-                    <a href="mailto:hello@360marketing.in" className="text-sm text-muted-foreground hover:text-secondary transition-colors">hello@360marketing.in</a>
-                  </div>
+      {/* MAIN INTERACTION SECTION */}
+      <section className="container mx-auto px-6 grid lg:grid-cols-12 gap-16 pb-32">
+        
+        {/* PREMIUM FORM CARD */}
+        <div className="lg:col-span-7">
+          <div className="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.03)] border border-neutral-100 relative">
+            <h2 className="text-3xl font-bold mb-10 tracking-tight">Project Inquiry</h2>
+            
+            <form onSubmit={submit} className="space-y-8">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-1">Full Name *</label>
+                  <Input 
+                    className="h-14 border-neutral-100 bg-neutral-50/50 focus:bg-white transition-all rounded-xl border-none ring-1 ring-neutral-200 focus:ring-2 focus:ring-primary"
+                    placeholder="E.g. Alexander Hamilton" 
+                    value={form.name} 
+                    onChange={(e) => setForm({ ...form, name: e.target.value })} 
+                  />
+                  {errors.name && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tighter">{errors.name}</p>}
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
-                    <Phone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Phone</p>
-                    <a href="tel:+919876543210" className="text-sm text-muted-foreground hover:text-secondary transition-colors">+91 98765 43210</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
-                    <MapPin className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Address</p>
-                    <p className="text-sm text-muted-foreground">123 Business Park, Andheri West,<br />Mumbai, Maharashtra 400053</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="h-10 w-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
-                    <Clock className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground mb-1">Business Hours</p>
-                    <p className="text-sm text-muted-foreground">Mon – Fri: 9:00 AM – 7:00 PM<br />Sat: 10:00 AM – 4:00 PM</p>
-                  </div>
-                </div>
-
-                <div className="pt-4">
-                  <p className="font-medium text-foreground mb-3">Follow Us</p>
-                  <div className="flex gap-3">
-                    {[Linkedin, Instagram, Twitter, Facebook].map((Icon, i) => (
-                      <a
-                        key={i}
-                        href="#"
-                        className="h-10 w-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary hover:bg-secondary hover:text-secondary-foreground transition-colors"
-                      >
-                        <Icon className="h-4 w-4" />
-                      </a>
-                    ))}
-                  </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-1">Email Address *</label>
+                  <Input 
+                    className="h-14 border-neutral-100 bg-neutral-50/50 focus:bg-white transition-all rounded-xl border-none ring-1 ring-neutral-200 focus:ring-2 focus:ring-primary"
+                    placeholder="name@company.com" 
+                    value={form.email} 
+                    onChange={(e) => setForm({ ...form, email: e.target.value })} 
+                  />
+                  {errors.email && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tighter">{errors.email}</p>}
                 </div>
               </div>
-            </ScrollAnimation>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-1">Phone</label>
+                  <Input className="h-14 border-none ring-1 ring-neutral-200 bg-neutral-50/50 rounded-xl" placeholder="+1 (000) 000-0000" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-1">Desired Service</label>
+                  <Input className="h-14 border-none ring-1 ring-neutral-200 bg-neutral-50/50 rounded-xl" placeholder="E.g. Brand Scaling" value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })} />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 ml-1">Message *</label>
+                <Textarea 
+                  className="min-h-[160px] border-none ring-1 ring-neutral-200 bg-neutral-50/50 rounded-xl resize-none p-4"
+                  placeholder="Tell us about your objectives..." 
+                  value={form.message} 
+                  onChange={(e) => setForm({ ...form, message: e.target.value })} 
+                />
+                {errors.message && <p className="text-red-500 text-[10px] font-bold uppercase tracking-tighter">{errors.message}</p>}
+              </div>
+
+              <Button className="w-full h-16 rounded-xl bg-neutral-900 text-white hover:bg-black transition-all text-lg font-semibold group" disabled={loading}>
+                {loading ? <Loader2 className="animate-spin" /> : (
+                  <span className="flex items-center gap-2">
+                    Submit Project Brief <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform"/>
+                  </span>
+                )}
+              </Button>
+            </form>
+          </div>
+        </div>
+
+        {/* INFO CONCIERGE */}
+        <div className="lg:col-span-5 flex flex-col justify-between py-6">
+          <div className="space-y-14">
+            <div>
+              <h3 className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-10">Concierge Services</h3>
+              <div className="grid gap-10">
+                <Info icon={Mail} title="General Inquiries" text="hello@360marketing.com" />
+                <Info icon={Phone} title="Priority Line" text="+91 98765 43210" />
+                <Info icon={MapPin} title="The Studio" text="Level 5, Sky Tower, Pune" />
+                <Info icon={Clock} title="Operating Hours" text="Mon – Fri | 09:00 – 19:00" />
+              </div>
+            </div>
+
+            <div className="pt-10 border-t border-neutral-200/60">
+              <h3 className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400 mb-6">Connect Digitally</h3>
+              <div className="flex gap-4">
+                <Social icon={Linkedin} link="#" />
+                <Social icon={Instagram} link="#" />
+                <Social icon={Twitter} link="#" />
+                <Social icon={Facebook} link="#" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="section-padding bg-muted">
-        <div className="container mx-auto container-padding max-w-3xl">
-          <ScrollAnimation>
-            <h2 className="font-display text-3xl font-bold text-center text-foreground mb-10">Before You Reach Out</h2>
-          </ScrollAnimation>
-          <Accordion type="single" collapsible className="space-y-2">
-            {faqs.map((faq, i) => (
-              <ScrollAnimation key={i} delay={i * 50}>
-                <AccordionItem value={`faq-${i}`} className="bg-card rounded-lg border px-4">
-                  <AccordionTrigger className="text-sm font-medium text-card-foreground">{faq.q}</AccordionTrigger>
-                  <AccordionContent className="text-sm text-muted-foreground">{faq.a}</AccordionContent>
-                </AccordionItem>
-              </ScrollAnimation>
-            ))}
-          </Accordion>
+      {/* LUXURY LOCATION SECTION */}
+      <section className="container mx-auto px-6 pb-32">
+        <div className="relative group">
+          <div className="absolute -inset-6 bg-gradient-to-tr from-primary/10 to-transparent rounded-[3.5rem] blur-3xl opacity-40 group-hover:opacity-100 transition duration-1000"></div>
+          
+          <div className="relative grid lg:grid-cols-3 gap-0 border border-neutral-100 rounded-[3rem] overflow-hidden bg-white shadow-[0_40px_100px_rgba(0,0,0,0.06)]">
+            
+            <div className="lg:col-span-2 h-[550px] relative grayscale hover:grayscale-0 transition-all duration-1000 ease-in-out">
+              <iframe
+                title="Office Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.03447396989!2d73.7898031!3d18.5248902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43100c34f33!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+              />
+              <div className="absolute top-8 left-8 bg-white/90 backdrop-blur-xl px-5 py-3 rounded-2xl border border-white/50 shadow-xl">
+                <p className="text-[10px] uppercase tracking-widest font-bold flex items-center gap-3">
+                  <span className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse" />
+                  Headquarters Active
+                </p>
+              </div>
+            </div>
+
+            <div className="p-12 md:p-16 flex flex-col justify-center bg-neutral-900 text-white">
+              <h2 className="text-4xl font-bold mb-6 tracking-tighter">Visit the Studio</h2>
+              <p className="text-neutral-400 font-light leading-relaxed mb-10 text-lg">
+                Our creative lab is where strategy meets art. Private consultations available by appointment for select clients.
+              </p>
+              
+              <div className="space-y-8">
+                <div className="flex items-center gap-5">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
+                    <MapPin size={20} className="text-primary" />
+                  </div>
+                  <p className="text-sm font-medium tracking-wide">Level 5, Sky Tower, Pune, MH 411001</p>
+                </div>
+              </div>
+
+              <Button className="mt-12 w-full bg-white text-black hover:bg-neutral-200 h-14 rounded-xl font-bold transition-all flex items-center gap-2">
+                Open in Maps <ExternalLink size={16} />
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
-  );
-};
 
-export default Contact;
+      {/* LUXURY FAQ SECTION */}
+      <section className="bg-white py-32 border-t border-neutral-100">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-20">
+            <div className="lg:w-1/3">
+              <span className="text-primary font-bold tracking-[0.3em] uppercase text-[10px] mb-4 block">Knowledge</span>
+              <h2 className="text-5xl font-bold tracking-tighter mb-6 leading-[0.9]">Common <br />Questions.</h2>
+              <p className="text-neutral-500 font-light text-lg">Detailed insights into our operational philosophy and client engagement process.</p>
+            </div>
+            <div className="lg:w-2/3 grid gap-6">
+              {faqs.map((f, i) => (
+                <details key={i} className="group border-b border-neutral-100 pb-6">
+                  <summary className="list-none cursor-pointer flex justify-between items-center py-6 text-xl font-semibold hover:text-primary transition-colors">
+                    {f.q}
+                    <span className="text-3xl font-extralight group-open:rotate-45 transition-transform duration-300">+</span>
+                  </summary>
+                  <p className="text-neutral-500 font-light text-lg leading-relaxed pb-6 max-w-3xl">
+                    {f.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SUCCESS MODAL OVERLAY */}
+      {success && (
+        <div className="fixed inset-0 bg-neutral-950/95 backdrop-blur-xl flex items-center justify-center z-[100] p-6">
+          <div className="bg-white p-16 rounded-[3rem] text-center max-w-xl shadow-2xl animate-in fade-in zoom-in duration-500">
+            <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-8">
+              <CheckCircle size={50} strokeWidth={1} />
+            </div>
+            <h3 className="text-4xl font-bold mb-4 tracking-tight text-neutral-900">Inquiry Authenticated</h3>
+            <p className="text-neutral-500 mb-10 text-lg font-light">Our strategy team has been alerted. We will reach out to schedule your private alignment session shortly.</p>
+            <Button onClick={() => setSuccess(false)} className="px-12 h-16 rounded-2xl bg-black text-white hover:scale-105 transition-transform">Return to Portal</Button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function Info({ icon: Icon, title, text }: { icon: IconType; title: string; text: string }) {
+  return (
+    <div className="flex items-start gap-6 group">
+      <div className="w-14 h-14 rounded-2xl bg-white border border-neutral-100 flex items-center justify-center shadow-sm group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">
+        <Icon size={22} className="text-neutral-400 group-hover:text-primary transition-colors duration-500" strokeWidth={1.2} />
+      </div>
+      <div className="pt-1">
+        <p className="text-[10px] uppercase tracking-widest font-bold text-neutral-400 mb-2">{title}</p>
+        <p className="text-xl font-medium text-neutral-800 tracking-tight">{text}</p>
+      </div>
+    </div>
+  )
+}
+
+function Social({ icon: Icon, link }: { icon: IconType; link: string }) {
+  return (
+    <a
+      href={link}
+      target="_blank"
+      className="w-14 h-14 rounded-2xl border border-neutral-100 flex items-center justify-center text-neutral-400 hover:text-white hover:bg-neutral-900 hover:border-neutral-900 transition-all duration-500 shadow-sm"
+    >
+      <Icon size={20} strokeWidth={1.5} />
+    </a>
+  )
+}

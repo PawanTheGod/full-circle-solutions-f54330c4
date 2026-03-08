@@ -1,93 +1,123 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import PageHeader from "@/components/PageHeader";
+import React, { useRef } from 'react';
 import ScrollAnimation from "@/components/ScrollAnimation";
-import { Star, Users, Award, TrendingUp } from "lucide-react";
+import { Quote, ArrowLeft, ArrowRight, Star } from "lucide-react";
 
-const testimonials = [
-  { quote: "360 Marketing transformed our online presence. Our website traffic increased by 200% in just 3 months!", name: "Sarah Johnson", role: "CEO", company: "TechStart", rating: 5 },
-  { quote: "The team's creative approach to content marketing helped us stand out in a crowded market.", name: "Michael Chen", role: "Marketing Director", company: "GrowthCo", rating: 5 },
-  { quote: "Professional, responsive, and results-driven. Highly recommend their services!", name: "Priya Sharma", role: "Founder", company: "BrandBoost", rating: 5 },
-  { quote: "Their SEO expertise took us from page 5 to page 1 on Google. Incredible results!", name: "Rahul Verma", role: "CTO", company: "InnovateLab", rating: 5 },
-  { quote: "The product photography they delivered was beyond our expectations. Absolutely stunning work.", name: "Anjali Patel", role: "E-commerce Manager", company: "FreshBite", rating: 5 },
-  { quote: "We saw a 5x return on our Google Ads investment within the first quarter. Truly data-driven.", name: "David Kim", role: "Head of Growth", company: "ScaleUp", rating: 5 },
-  { quote: "Their team feels like an extension of our own. Dedicated, creative, and always on time.", name: "Lisa Wong", role: "CMO", company: "MediaPro", rating: 5 },
-  { quote: "From branding to web development, they handled everything seamlessly. One-stop solution!", name: "Arjun Mehta", role: "Co-Founder", company: "StartupHub", rating: 5 },
-  { quote: "The landing page they built for our SaaS product boosted conversions by 40%. Game-changer!", name: "Emily Davis", role: "Product Manager", company: "DigitalEdge", rating: 5 },
+const STATS = [
+  { id: 1, label: 'Capital Deployed', value: '₹5Cr+' },
+  { id: 2, label: 'Global Mandates', value: '120+' },
+  { id: 3, label: 'Creative Awards', value: '12' },
+  { id: 4, label: 'Success Rate', value: '98%' }
 ];
 
-const stats = [
-  { icon: Users, value: "98%", label: "Client Satisfaction" },
-  { icon: Star, value: "4.9/5", label: "Average Rating" },
-  { icon: TrendingUp, value: "90%", label: "Client Retention Rate" },
-  { icon: Award, value: "50+", label: "Projects Delivered" },
+const TESTIMONIALS = [
+  {
+    id: 1,
+    name: 'Sarah Jenkins',
+    role: 'CEO, TechNova',
+    text: '"360 Marketing completely transformed our online presence. Our lead generation increased by 200% within the first quarter. Truly institutional-grade service."',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80'
+  },
+  {
+    id: 2,
+    name: 'Michael Chen',
+    role: 'Product Lead, Quantum',
+    text: '"The digital architecture they built is not only beautiful but incredibly performant. They understood our bespoke needs perfectly."',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&q=80'
+  },
+  {
+    id: 3,
+    name: 'Elena Rodriguez',
+    role: 'Founder, FitLife',
+    text: '"Their content creation team captured our brand voice with eerie precision. The ROI on our social campaigns has been unprecedented."',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80'
+  }
 ];
 
 const Testimonials = () => {
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (carouselRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div>
-      <PageHeader title="Client Success Stories" subtitle="Don't just take our word for it" />
-
-      <section className="section-padding bg-background">
-        <div className="container mx-auto container-padding">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <ScrollAnimation key={t.name} delay={i * 80}>
-                <Card className="h-full hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6 flex flex-col gap-4">
-                    <div className="flex gap-1">
-                      {Array.from({ length: t.rating }).map((_, j) => (
-                        <Star key={j} className="h-4 w-4 fill-secondary text-secondary" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed italic flex-1">"{t.quote}"</p>
-                    <div className="flex items-center gap-3 mt-auto">
-                      <div className="h-10 w-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-bold text-sm">
-                        {t.name[0]}
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-card-foreground">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.role}, {t.company}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+    <section className="py-32 bg-white overflow-hidden">
+      <div className="container mx-auto px-6">
+        
+        {/* BENTO STATS GRID */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 border border-neutral-200 rounded-[2.5rem] overflow-hidden mb-32">
+          {STATS.map(stat => (
+            <div key={stat.id} className="bg-white p-12 text-center group hover:bg-neutral-50 transition-colors">
+              <ScrollAnimation>
+                <span className="block text-4xl md:text-5xl font-extrabold tracking-tighter text-neutral-900 mb-2 group-hover:scale-110 transition-transform duration-500">
+                  {stat.value}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-neutral-400">
+                  {stat.label}
+                </span>
               </ScrollAnimation>
-            ))}
+            </div>
+          ))}
+        </div>
+
+        {/* HEADER */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+          <div className="max-w-2xl">
+            <ScrollAnimation>
+              <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary italic mb-4 block">Voices of Trust</span>
+              <h2 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-neutral-900 leading-none">
+                Client Sentiments<span className="text-primary">.</span>
+              </h2>
+            </ScrollAnimation>
+          </div>
+          
+          <div className="flex gap-4">
+            <button onClick={() => scroll('left')} className="w-14 h-14 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-black hover:text-white transition-all group">
+              <ArrowLeft size={20} className="group-active:-translate-x-1 transition-transform" />
+            </button>
+            <button onClick={() => scroll('right')} className="w-14 h-14 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-black hover:text-white transition-all group">
+              <ArrowRight size={20} className="group-active:translate-x-1 transition-transform" />
+            </button>
           </div>
         </div>
-      </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto container-padding">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((s) => (
-              <ScrollAnimation key={s.label}>
-                <div className="text-center">
-                  <s.icon className="h-8 w-8 mx-auto mb-3 text-secondary" />
-                  <div className="font-display text-3xl md:text-4xl font-bold mb-1">{s.value}</div>
-                  <p className="text-sm text-primary-foreground/60">{s.label}</p>
+        {/* CAROUSEL */}
+        <div 
+          className="flex gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-8" 
+          ref={carouselRef}
+        >
+          {TESTIMONIALS.map(t => (
+            <div 
+              key={t.id} 
+              className="min-w-full md:min-w-[500px] snap-start p-10 md:p-14 bg-neutral-50 rounded-[3rem] border border-neutral-100 flex flex-col justify-between"
+            >
+              <div>
+                <Quote className="text-primary/20 mb-8" size={40} fill="currentColor" />
+                <div className="flex gap-1 mb-6">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} className="fill-primary text-primary" />
+                  ))}
                 </div>
-              </ScrollAnimation>
-            ))}
-          </div>
+                <p className="text-xl md:text-2xl font-light leading-relaxed text-neutral-800 italic mb-10">
+                  {t.text}
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <img src={t.photo} alt={t.name} className="w-14 h-14 rounded-full object-cover grayscale" />
+                <div>
+                  <h4 className="font-bold tracking-tight text-neutral-900">{t.name}</h4>
+                  <p className="text-xs uppercase tracking-widest text-neutral-400 font-medium">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-
-      <section className="py-20 bg-secondary text-secondary-foreground">
-        <div className="container mx-auto container-padding text-center">
-          <ScrollAnimation>
-            <h2 className="font-display text-3xl font-bold mb-4">Ready to join our success stories?</h2>
-            <p className="text-secondary-foreground/80 mb-8">Let's create remarkable results for your business.</p>
-            <Button asChild size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-full px-8">
-              <Link to="/contact">Get In Touch</Link>
-            </Button>
-          </ScrollAnimation>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

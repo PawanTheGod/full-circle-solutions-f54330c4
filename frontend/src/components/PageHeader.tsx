@@ -3,19 +3,38 @@ import ScrollAnimation from "./ScrollAnimation";
 interface PageHeaderProps {
   title: string;
   subtitle: string;
+  category?: string; // Optional field for that "luxury label" look
 }
 
-const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
+const PageHeader = ({ title, subtitle, category = "Expertise" }: PageHeaderProps) => {
   return (
-    <section className="bg-primary text-primary-foreground section-padding pt-32 md:pt-40">
-      <div className="container mx-auto container-padding text-center">
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-28 overflow-hidden bg-white">
+      {/* Background Subtle Gradient Aura */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-neutral-100 via-transparent to-transparent -z-10" />
+      
+      <div className="container mx-auto px-6 text-center">
         <ScrollAnimation>
-          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            {title}
+          {/* Top Label */}
+          <div className="flex justify-center mb-6">
+            <span className="text-[10px] uppercase tracking-[0.5em] font-bold text-primary bg-primary/5 px-4 py-1.5 rounded-full border border-primary/10">
+              {category}
+            </span>
+          </div>
+
+          {/* Main Title */}
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-neutral-900 leading-[0.9] mb-8">
+            {title}<span className="text-primary">.</span>
           </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/70 max-w-2xl mx-auto">
+
+          {/* Subtitle with better line-height and color */}
+          <p className="text-lg md:text-xl text-neutral-500 font-light max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
+
+          {/* Minimalist Bottom Decorator */}
+          <div className="mt-12 flex justify-center">
+            <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent" />
+          </div>
         </ScrollAnimation>
       </div>
     </section>
