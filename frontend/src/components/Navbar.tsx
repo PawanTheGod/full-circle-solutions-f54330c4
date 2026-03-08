@@ -27,11 +27,10 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+          ? "bg-background/40 backdrop-blur-xl shadow-sm border-b border-white/10"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 container-padding">
         <Link to="/" className="font-display text-xl md:text-2xl font-bold text-foreground">
@@ -44,11 +43,10 @@ const Navbar = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                location.pathname === link.path
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${location.pathname === link.path
                   ? "text-secondary"
                   : "text-muted-foreground hover:text-foreground"
-              }`}
+                }`}
             >
               {link.label}
             </Link>
@@ -78,11 +76,10 @@ const Navbar = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setOpen(false)}
-                  className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname === link.path
+                  className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${location.pathname === link.path
                       ? "bg-secondary/10 text-secondary"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>
