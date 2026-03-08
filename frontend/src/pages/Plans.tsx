@@ -55,56 +55,88 @@ const plans = [
 ];
 
 const faqs = [
-  { q: "Can I adjust my retainer tier?", a: "Flexibility is core to our partnership. Retainer tiers can be adjusted with a 14-day notice prior to the next billing cycle." },
-  { q: "Is there a long-term commitment?", a: "We believe in results over restrictions. All partnerships are on a month-to-month basis unless a multi-quarter roadmap is requested." },
-  { q: "How is onboarding handled?", a: "New mandates go through a 48-hour 'Deep-Dive' period where we audit your current presence before execution begins." },
-  { q: "What about custom ad spend?", a: "Pricing covers our management and creative fee. Direct ad spend budgets are managed transparently through your own accounts." },
+  {
+    q: "Can I adjust my retainer tier?",
+    a: "Flexibility is core to our partnership. Retainer tiers can be adjusted with a 14-day notice prior to the next billing cycle.",
+  },
+  {
+    q: "Is there a long-term commitment?",
+    a: "We believe in results over restrictions. All partnerships are on a month-to-month basis unless a multi-quarter roadmap is requested.",
+  },
+  {
+    q: "How is onboarding handled?",
+    a: "New mandates go through a 48-hour 'Deep-Dive' period where we audit your current presence before execution begins.",
+  },
+  {
+    q: "What about custom ad spend?",
+    a: "Pricing covers our management and creative fee. Direct ad spend budgets are managed transparently through your own accounts.",
+  },
 ];
 
 const Plans = () => {
   return (
     <div className="bg-[#fafafa]">
-      <PageHeader 
+      <PageHeader
         category="Retainers"
-        title="Investment tiers for global growth" 
-        subtitle="Transparent pricing designed for ambitious brands ready to transcend the ordinary." 
+        title="Investment tiers for global growth"
+        subtitle="Transparent pricing designed for ambitious brands ready to transcend the ordinary."
       />
 
       {/* PRICING SECTION */}
-      <section className="pb-32 bg-white">
+      <section className="pb-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {plans.map((plan, i) => (
               <ScrollAnimation key={plan.name} delay={i * 100}>
-                <Card className={`h-full border-none transition-all duration-500 rounded-[2.5rem] overflow-hidden ${
-                  plan.highlighted 
-                    ? "bg-neutral-900 text-white shadow-2xl scale-105 z-10" 
-                    : "bg-neutral-50 text-neutral-900 hover:bg-neutral-100"
-                }`}>
+                <Card
+                  className={`h-full border-none transition-all duration-500 rounded-[2.5rem] overflow-hidden ${
+                    plan.highlighted
+                      ? "bg-neutral-900 text-white shadow-2xl scale-105 z-10"
+                      : "bg-neutral-50 text-neutral-900 hover:bg-neutral-100"
+                  }`}
+                >
                   <CardHeader className="p-10 pb-6 text-left">
-                    <span className={`text-[10px] uppercase tracking-[0.3em] font-bold mb-6 block ${plan.highlighted ? "text-primary" : "text-neutral-400"}`}>
+                    <span
+                      className={`text-[10px] uppercase tracking-[0.3em] font-bold mb-6 block ${plan.highlighted ? "text-primary" : "text-neutral-400"}`}
+                    >
                       {plan.badge}
                     </span>
-                    <CardTitle className="text-3xl font-bold tracking-tighter mb-4">{plan.name}</CardTitle>
-                    <p className={`text-sm font-light leading-relaxed mb-8 ${plan.highlighted ? "text-neutral-400" : "text-neutral-500"}`}>
+                    <CardTitle className="text-3xl font-bold tracking-tighter mb-4">
+                      {plan.name}
+                    </CardTitle>
+                    <p
+                      className={`text-sm font-light leading-relaxed mb-8 ${plan.highlighted ? "text-neutral-400" : "text-neutral-500"}`}
+                    >
                       {plan.desc}
                     </p>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-5xl font-extrabold tracking-tighter">{plan.price}</span>
-                      <span className={`text-sm font-medium ${plan.highlighted ? "text-neutral-500" : "text-neutral-400"}`}>{plan.period}</span>
+                      <span className="text-5xl font-extrabold tracking-tighter">
+                        {plan.price}
+                      </span>
+                      <span
+                        className={`text-sm font-medium ${plan.highlighted ? "text-neutral-500" : "text-neutral-400"}`}
+                      >
+                        {plan.period}
+                      </span>
                     </div>
                   </CardHeader>
 
                   <CardContent className="p-10 pt-0 flex flex-col h-full">
-                    <div className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`} />
-                    
+                    <div
+                      className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`}
+                    />
+
                     <ul className="space-y-5 mb-12 flex-grow">
                       {plan.features.map((f) => (
                         <li key={f} className="flex items-center gap-3 group">
-                          <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlighted ? "bg-primary text-white" : "bg-neutral-900 text-white"}`}>
+                          <div
+                            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${plan.highlighted ? "bg-primary text-white" : "bg-neutral-900 text-white"}`}
+                          >
                             <Check className="h-3 w-3" />
                           </div>
-                          <span className={`text-sm font-light tracking-wide ${plan.highlighted ? "text-neutral-300" : "text-neutral-600"}`}>
+                          <span
+                            className={`text-sm font-light tracking-wide ${plan.highlighted ? "text-neutral-300" : "text-neutral-600"}`}
+                          >
                             {f}
                           </span>
                         </li>
@@ -119,8 +151,15 @@ const Plans = () => {
                           : "bg-neutral-900 text-white hover:bg-black"
                       }`}
                     >
-                      <Link to="/contact" className="flex items-center justify-center gap-2">
-                        {plan.cta} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                      <Link
+                        to="/contact"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        {plan.cta}{" "}
+                        <ArrowRight
+                          size={14}
+                          className="group-hover:translate-x-1 transition-transform"
+                        />
                       </Link>
                     </Button>
                   </CardContent>
@@ -132,29 +171,46 @@ const Plans = () => {
       </section>
 
       {/* LUXE FAQ SECTION */}
-      <section className="py-32 bg-neutral-900 text-white">
+      <section className="py-24 bg-neutral-900 text-white">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-12 gap-16">
             <div className="lg:col-span-5">
               <ScrollAnimation>
-                <HelpCircle className="text-primary mb-6" size={40} strokeWidth={1} />
-                <h2 className="text-5xl font-bold tracking-tighter mb-6">Partnership <br />Clarifications.</h2>
+                <HelpCircle
+                  className="text-primary mb-6"
+                  size={40}
+                  strokeWidth={1}
+                />
+                <h2 className="text-5xl font-bold tracking-tighter mb-6">
+                  Partnership <br />
+                  Clarifications.
+                </h2>
                 <p className="text-neutral-400 text-lg font-light max-w-md">
-                  We believe in radical transparency. If your question isn't addressed here, our concierge is available for a direct call.
+                  We believe in radical transparency. If your question isn't
+                  addressed here, our concierge is available for a direct call.
                 </p>
-                <Button variant="link" className="text-primary p-0 h-auto mt-8 font-bold tracking-widest text-xs uppercase group">
-                  Contact Concierge <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" size={14} />
+                <Button
+                  variant="link"
+                  className="text-primary p-0 h-auto mt-8 font-bold tracking-widest text-xs uppercase group"
+                >
+                  Contact Concierge{" "}
+                  <ArrowRight
+                    className="ml-2 group-hover:translate-x-2 transition-transform"
+                    size={14}
+                  />
                 </Button>
               </ScrollAnimation>
             </div>
-            
+
             <div className="lg:col-span-7 space-y-4">
               {faqs.map((faq, i) => (
                 <ScrollAnimation key={i} delay={i * 100}>
                   <details className="group border-b border-neutral-800 pb-6 transition-all">
                     <summary className="list-none cursor-pointer flex justify-between items-center py-6 text-xl font-medium text-neutral-200 hover:text-white transition-colors">
                       {faq.q}
-                      <span className="text-2xl font-light group-open:rotate-45 transition-transform duration-500">+</span>
+                      <span className="text-2xl font-light group-open:rotate-45 transition-transform duration-500">
+                        +
+                      </span>
                     </summary>
                     <p className="text-neutral-500 font-light leading-relaxed text-lg max-w-2xl animate-in fade-in slide-in-from-top-2 duration-500">
                       {faq.a}
@@ -168,17 +224,21 @@ const Plans = () => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-40 bg-white overflow-hidden relative">
+      <section className="py-24 bg-white overflow-hidden relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] rounded-full -z-10" />
         <div className="container mx-auto px-6 text-center">
           <ScrollAnimation>
             <h2 className="text-6xl md:text-7xl font-extrabold tracking-tighter mb-8 text-neutral-900">
-              Your evolution <br />begins now.
+              Your evolution <br />
+              begins now.
             </h2>
             <p className="text-neutral-500 max-w-lg mx-auto mb-12 text-lg font-light">
               Don't just compete. Transcend the market with a 360° strategy.
             </p>
-            <Button asChild className="h-20 px-12 rounded-full bg-black text-white text-lg hover:bg-primary transition-all shadow-2xl">
+            <Button
+              asChild
+              className="h-20 px-12 rounded-full bg-black text-white text-lg hover:bg-primary transition-all shadow-2xl"
+            >
               <Link to="/contact">Schedule Private Consultation</Link>
             </Button>
           </ScrollAnimation>

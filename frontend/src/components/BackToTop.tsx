@@ -12,7 +12,8 @@ const BackToTop = () => {
       setVisible(window.scrollY > 400);
 
       // Calculate scroll progress percentage
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.scrollY / totalHeight) * 100;
       setScrollProgress(progress);
     };
@@ -26,7 +27,9 @@ const BackToTop = () => {
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       className={cn(
         "fixed bottom-10 right-10 z-50 h-14 w-14 flex items-center justify-center transition-all duration-500 ease-expo group",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+        visible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-10 pointer-events-none",
       )}
       aria-label="Back to top"
     >

@@ -23,4 +23,11 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  {
+    // Override for Shadcn UI components since they export variants intentionally
+    files: ["src/components/ui/**/*.{ts,tsx}", "components/ui/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  }
 );
