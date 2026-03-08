@@ -12,10 +12,11 @@ const services = [
 
 const ServicesPreview = () => {
     return (
-        <section className="section-padding bg-background relative">
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-50" />
+        <section className="section-padding relative bg-transparent">
+            {/* Seamless Grid Dimming Backdrop */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-transparent pointer-events-none" />
 
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <ScrollAnimation>
                     <div className="text-center mb-16 md:mb-24">
                         <span className="text-xs sm:text-sm font-bold tracking-[0.3em] text-foreground/60 uppercase mb-4 block">
@@ -29,9 +30,9 @@ const ServicesPreview = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                     {services.map((s, i) => (
                         <ScrollAnimation key={s.title} delay={i * 100}>
-                            <Card className="group relative bg-gradient-to-b from-muted/50 to-background border-border/40 hover:border-secondary/50 shadow-sm hover:shadow-2xl hover:shadow-secondary/20 hover:-translate-y-2 transition-all duration-500 h-full rounded-2xl overflow-hidden backdrop-blur-sm">
+                            <Card className="group relative bg-white/5 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:border-white/20 hover:bg-white/10 hover:-translate-y-4 transition-all duration-500 h-full rounded-2xl overflow-hidden backdrop-blur-3xl">
                                 {/* Subtle inner glow effect for SaaS feel */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                                 <CardContent className="p-8 flex flex-col items-start gap-5 h-full relative z-10">
                                     <div className="h-14 w-14 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-inner">

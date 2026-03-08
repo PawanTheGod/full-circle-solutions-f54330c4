@@ -5,7 +5,7 @@ import { FlowButton } from "@/components/ui/flow-button";
 
 const Hero = () => {
     return (
-        <section className="relative min-h-[100svh] flex items-center justify-center bg-background text-foreground overflow-hidden">
+        <section className="relative min-h-[100svh] flex items-center justify-center bg-transparent text-foreground overflow-hidden">
             {/* Ambient Top Glow Line */}
             <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-secondary/40 to-transparent opacity-80" />
 

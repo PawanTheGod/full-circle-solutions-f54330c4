@@ -4,10 +4,13 @@ import ScrollAnimation from "@/components/ScrollAnimation";
 
 const CTASection = () => {
     return (
-        <section className="section-padding bg-background">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="section-padding relative bg-transparent">
+            {/* Seamless Grid Dimming Backdrop */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-transparent pointer-events-none" />
+
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <ScrollAnimation>
-                    <div className="bg-primary/5 border border-primary/10 rounded-[2.5rem] py-24 px-8 text-center relative overflow-hidden backdrop-blur-md shadow-2xl shadow-primary/5">
+                    <div className="bg-primary/5 border border-primary/10 rounded-[2.5rem] py-24 px-8 text-center relative overflow-hidden backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                         {/* Decorative glowing blobs */}
                         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-secondary/20 rounded-full blur-[100px] pointer-events-none" />
                         <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />

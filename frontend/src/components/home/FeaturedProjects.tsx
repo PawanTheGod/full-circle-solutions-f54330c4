@@ -11,7 +11,7 @@ const projects = [
 
 const FeaturedProjects = () => {
     return (
-        <section className="section-padding bg-background relative">
+        <section className="section-padding relative">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <ScrollAnimation>
                     <div className="text-center mb-16 md:mb-24">

@@ -45,22 +45,22 @@ const stats = [
 
 const StatsSection = () => {
     return (
-        <section className="section-padding bg-background">
+        <section className="section-padding bg-transparent">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="bg-zinc-950 rounded-[2.5rem] py-16 px-8 relative overflow-hidden shadow-2xl">
+                <div className="bg-gradient-to-br from-primary/80 to-secondary/30 backdrop-blur-xl border border-secondary/30 ring-1 ring-white/10 rounded-[2.5rem] py-16 px-8 relative overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
                     {/* Background glow effect */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-secondary/20 blur-[120px] rounded-full pointer-events-none" />
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
                         {stats.map((s) => (
                             <div key={s.label} className="text-center group">
-                                <div className="inline-flex h-14 w-14 rounded-full bg-white/5 items-center justify-center mb-6 group-hover:bg-secondary/20 transition-colors duration-500">
-                                    <s.icon className="h-6 w-6 text-secondary" />
+                                <div className="inline-flex h-16 w-16 rounded-full bg-secondary border-2 border-white/50 items-center justify-center mb-6 shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:scale-110 group-hover:bg-secondary/90 transition-all duration-500">
+                                    <s.icon className="h-7 w-7 text-white drop-shadow-md" />
                                 </div>
-                                <div className="font-display text-5xl md:text-6xl font-extrabold mb-3 text-white tracking-tight">
+                                <div className="font-display text-5xl md:text-6xl font-extrabold mb-3 text-white tracking-tight drop-shadow-md">
                                     <Counter target={s.value} suffix={s.suffix} />
                                 </div>
-                                <p className="text-sm sm:text-base font-medium text-white/60 uppercase tracking-widest">{s.label}</p>
+                                <p className="text-sm sm:text-base font-bold text-white/90 uppercase tracking-widest drop-shadow-sm">{s.label}</p>
                             </div>
                         ))}
                     </div>

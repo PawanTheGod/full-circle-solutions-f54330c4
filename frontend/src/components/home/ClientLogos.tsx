@@ -16,7 +16,7 @@ const brands = [
 
 const ClientLogos = () => {
     return (
-        <section className="bg-background border-t border-border/40 overflow-hidden py-10">
+        <section className="overflow-hidden py-10 bg-transparent">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
                 <ScrollAnimation>
                     <p className="text-center text-xs sm:text-sm font-bold tracking-[0.3em] text-foreground/40 uppercase">Trusted By Leading Brands</p>
