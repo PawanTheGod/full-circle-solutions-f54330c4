@@ -101,7 +101,7 @@ const Plans = () => {
             {plans.map((plan, i) => (
               <ScrollAnimation key={plan.name} delay={i * 100}>
                 <Card
-                  className={`h-full border-none transition-all duration-500 rounded-[2.5rem] overflow-hidden ${
+                  className={`flex flex-col h-full border-none transition-all duration-500 rounded-[2.5rem] overflow-hidden ${
                     plan.highlighted
                       ? "bg-neutral-900 text-white shadow-2xl scale-105 z-10"
                       : "bg-neutral-50 text-neutral-900 hover:bg-neutral-100"
@@ -133,7 +133,7 @@ const Plans = () => {
                     </div>
                   </CardHeader>
 
-                  <CardContent className="p-10 pt-0 flex flex-col h-full">
+                  <CardContent className="p-10 pt-0 flex flex-col flex-1">
                     <div
                       className={`h-[1px] w-full mb-10 ${plan.highlighted ? "bg-neutral-800" : "bg-neutral-200"}`}
                     />
