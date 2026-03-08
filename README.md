@@ -1,73 +1,130 @@
-# Welcome to your Lovable project
+# 360° Marketing Agency
 
-## Project info
+A professional full-stack web application with a clean **frontend / backend** separation.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 📁 Project Structure
 
-There are several ways of editing your application.
+```
+360-marketing-agency/
+│
+├── backend/                   ← Express.js API (Node.js)
+│   ├── controllers/
+│   │   └── contactController.js
+│   ├── routes/
+│   │   └── contactRoutes.js
+│   ├── utils/
+│   │   └── sendEmail.js
+│   ├── .env                   ← ⚠️ Fill in your Gmail credentials
+│   ├── package.json
+│   └── server.js
+│
+├── frontend/                  ← React + Vite + TailwindCSS
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   │   ├── Index.tsx      (Home)
+│   │   │   ├── Services.tsx
+│   │   │   ├── Plans.tsx
+│   │   │   ├── Portfolio.tsx
+│   │   │   ├── Testimonials.tsx
+│   │   │   ├── About.tsx
+│   │   │   └── Contact.tsx    ← Calls backend API
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── package.json
+│   ├── tailwind.config.ts
+│   └── vite.config.ts
+│
+└── README.md
+```
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🚀 How to Run
 
-Changes made via Lovable will be committed automatically to this repo.
+### 1. Start the Backend
 
-**Use your preferred IDE**
+```bash
+cd backend
+npm install
+node server.js
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Backend runs at → **http://localhost:5000**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 2. Start the Frontend
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Frontend runs at → **http://localhost:5173**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## ⚙️ Backend Environment Variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Edit `backend/.env` before starting:
 
-## What technologies are used for this project?
+```env
+PORT=5000
+NODE_ENV=development
 
-This project is built with:
+# Gmail App Password (NOT your account password)
+GMAIL_USER=your-email@gmail.com
+GMAIL_PASS=your-16-char-app-password
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+# Where contact form submissions are delivered
+AGENCY_EMAIL=hello@360marketing.in
 
-## How can I deploy this project?
+# Frontend origin for CORS
+FRONTEND_URL=http://localhost:5173
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+> **How to get a Gmail App Password:**
+> 1. Enable 2-Step Verification on your Google Account
+> 2. Go to **Manage your Google Account → Security → App Passwords**
+> 3. Create an app password for "Mail" and paste it as `GMAIL_PASS`
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🔗 How Frontend Talks to Backend
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The `Contact.tsx` page sends form submissions to:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```
+POST http://localhost:5000/api/contact
+```
+
+CORS is already configured in `backend/server.js` to accept requests from `http://localhost:5173`.
+
+---
+
+## 👥 Team Development
+
+Each team member should work in their assigned area:
+
+| Developer | Area | Path |
+|-----------|------|------|
+| Frontend lead | Pages & components | `frontend/src/pages/` |
+| Frontend dev | Shared components | `frontend/src/components/` |
+| Backend dev | API & email | `backend/` |
+
+---
+
+## 📦 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, TypeScript, Vite, TailwindCSS, shadcn/ui |
+| Backend | Node.js, Express.js |
+| Email | Nodemailer + Gmail |
+| Routing | React Router DOM v6 |

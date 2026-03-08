@@ -36,10 +36,33 @@ const Contact = () => {
     e.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    toast({ title: "Message sent!", description: "We'll get back to you within 24 hours." });
-    setForm({ name: "", email: "", phone: "", service: "", message: "" });
-    setSubmitting(false);
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        toast({ title: "Message sent! ✅", description: data.message || "We'll get back to you within 24 hours." });
+        setForm({ name: "", email: "", phone: "", service: "", message: "" });
+        setErrors({});
+      } else {
+        toast({
+          title: "Something went wrong",
+          description: data.message || "Please try again or email us directly.",
+          variant: "destructive",
+        });
+      }
+    } catch {
+      toast({
+        title: "Network Error",
+        description: "Could not reach the server. Please check your connection or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
