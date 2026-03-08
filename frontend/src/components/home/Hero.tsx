@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 const Hero = () => {
     return (
         <section className="relative min-h-[100svh] flex items-center justify-center bg-background text-foreground overflow-hidden">
-            {/* Subtle Gradient Background Layers */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-secondary/5 via-background to-background pointer-events-none" />
+            {/* Ambient Top Glow Line */}
+            <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-secondary/40 to-transparent opacity-80" />
+
+            {/* Main Gradient Background Layers */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,hsl(var(--secondary)/0.18),transparent_70%)] pointer-events-none" />
 
             {/* Blurred Glowing Blobs for Depth */}
-            <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none opacity-60" />
-            <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none opacity-60" />
+            <div className="absolute top-[10%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/25 rounded-full blur-[140px] pointer-events-none opacity-80 mix-blend-screen" />
+            <div className="absolute bottom-[20%] right-[10%] translate-x-1/2 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-[120px] pointer-events-none opacity-70 mix-blend-screen" />
 
             <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
 
